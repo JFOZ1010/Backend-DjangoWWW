@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'AppBack',
 ]
 
 MIDDLEWARE = [
@@ -75,8 +76,12 @@ WSGI_APPLICATION = 'Backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'proyect_www',
+        'USER': 'juanfelipeoz',
+        'PASSWORD': 'LBox2vyKMhOjkQ2bwtQMb60HJp8XFnIu',
+        'HOST': 'dpg-cdnrnmha6gdooi7cjf50-a.oregon-postgres.render.com',
+        'DATABASE_PORT': '5432',
     }
 }
 
