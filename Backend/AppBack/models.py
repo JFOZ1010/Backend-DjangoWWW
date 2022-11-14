@@ -18,7 +18,6 @@ class Account(models.Model):
 class Supplier(models.Model):
     user_id = models.ForeignKey(Account, on_delete=models.CASCADE, related_name= 'supplier', primary_key = True)
     supplier_name = models.CharField(max_length = 30)
-    email = models.EmailField()
     
 class User(models.Model):
     user_id = models.ForeignKey(Account, on_delete=models.CASCADE, related_name= 'user', primary_key = True)

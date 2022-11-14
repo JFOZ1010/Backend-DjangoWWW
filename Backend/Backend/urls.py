@@ -16,10 +16,23 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from AppBack.Api.views import UserCreateApi
+from AppBack.Api.views import (
+                                AccountUserCreateApi, 
+                                AccountSupplierCreateApi, 
+                                AccountUserUpdateApi, 
+                                AccountUserRetreiveApi,
+                                AccountSupplierUpdateApi,
+                                AccountSupplierRetreiveApi
+                                )
 #Kevin
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/users/create/', UserCreateApi.as_view())
+    path('api/account_users/create/', AccountUserCreateApi.as_view()),
+    path('api/account_users/update/<int:pk>', AccountUserUpdateApi.as_view()),
+    path('api/account_users/retrieve/<int:pk>', AccountUserRetreiveApi.as_view()),
+    path('api/account_suppliers/create/', AccountSupplierCreateApi.as_view()),
+    path('api/account_suppliers/update/<int:pk>', AccountSupplierUpdateApi.as_view()),
+    path('api/account_suppliers/retrieve/<int:pk>', AccountSupplierRetreiveApi.as_view()),
+    
 ]
