@@ -39,3 +39,27 @@ def addNews(request):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
 """FIN BLOQUE DE CRUD DE NOTICIA"""
+
+#funcion para obtener todos los datos
+@api_view(['GET'])
+def allNews(request):
+    new = New.objects.all()
+    new_serializer = NewSerializer(new, many=True)
+    return Response(new_serializer.data)
+
+
+#funcion para actualizar un dato
+@api_view(['POST'])
+def updateNew(request, pk):
+    new = New.objects.get(id=pk)
+    new_serializer = NewSerializer(instance=new, data=request.data)
+    if new_serializer.is_valid():
+        new_serializer.save()
+    return Response(new_serializer.data)
+
+#funcion para eliminar un dato
+@api_view(['DELETE'])
+def deleteNew(pk, request):
+    new = New.objects.get(id=pk)
+    new.delete()
+    return Response('New successfully deleted!')
