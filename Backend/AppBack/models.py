@@ -63,3 +63,10 @@ class History_item(models.Model):
     class Meta:
         unique_together = (('history_id', 'item_id'))
 
+
+
+
+"""INICIA BLOQUE DE CRUD DE NOTICIA"""
+
+"""FIN BLOQUE DE CRUD DE NOTICIA"""
+
