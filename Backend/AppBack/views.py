@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import New
 from .serializers import NewSerializer
+from django.shortcuts import get_object_or_404
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -15,10 +16,10 @@ from rest_framework import status
 @api_view(['GET'])
 def NewOverview(request):
     new_urls = {
-        'all_items': '/',
-        'Add': '/create',
-        'Update': '/update/pk',
-        'Delete': '/New/pk/delete'
+        'all_items': 'all/',
+        'Add': 'create/',
+        'Update': 'update/pk/',
+        'Delete': 'delete/pk/'
     }
 
   
@@ -43,24 +44,29 @@ def addNews(request):
 
 #funcion para obtener todos los datos
 @api_view(['GET'])
-def allNews(request):
-    new = New.objects.all()
-    new_serializer = NewSerializer(new, many=True)
-    return Response(new_serializer.data)
+def allNews(pk=None):
+    news = New.objects.all()
+    serializer = NewSerializer(news, many=True)
+    return Response(serializer.data)
 
 
 #funcion para actualizar un dato
 @api_view(['POST'])
 def updateNew(request, pk):
-    new = New.objects.get(id=pk)
-    new_serializer = NewSerializer(instance=new, data=request.data)
-    if new_serializer.is_valid():
-        new_serializer.save()
-    return Response(new_serializer.data)
+    new = New.objects.get(pk=pk)
+    data = NewSerializer(instance=new, data=request.data)
+
+    if data.is_valid():
+        data.save()
+        return Response(data.data)
+    else:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
 
 #funcion para eliminar un dato
 @api_view(['DELETE'])
-def deleteNew(pk, request):
-    new = New.objects.get(id=pk)
+def deleteNew(request, pk):
+    #new = New.objects.get(pk=pk)
+    new = get_object_or_404(New, pk=pk)
     new.delete()
-    return Response('New successfully deleted!')
+    return Response(status=status.HTTP_202_ACCEPTED)
