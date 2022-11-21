@@ -17,22 +17,26 @@ from django.contrib import admin
 from django.urls import path
 
 from AppBack.Api.views import (
-                                AccountUserCreateApi, 
-                                AccountSupplierCreateApi, 
-                                AccountUserUpdateApi, 
-                                AccountUserRetreiveApi,
-                                AccountSupplierUpdateApi,
-                                AccountSupplierRetreiveApi
+                                AccountCreateApi,
+                                UserCreateApi, 
+                                SupplierCreateApi, 
+                                AccountUpdateApi,
+                                UserUpdateApi, 
+                                SupplierUpdateApi,
+                                AccountRetrieveApi,
+                                UserRetrieveApi, 
+                                SupplierRetrieveApi, 
                                 )
-#Kevin
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/account_users/create/', AccountUserCreateApi.as_view()),
-    path('api/account_users/update/<int:pk>', AccountUserUpdateApi.as_view()),
-    path('api/account_users/retrieve/<int:pk>', AccountUserRetreiveApi.as_view()),
-    path('api/account_suppliers/create/', AccountSupplierCreateApi.as_view()),
-    path('api/account_suppliers/update/<int:pk>', AccountSupplierUpdateApi.as_view()),
-    path('api/account_suppliers/retrieve/<int:pk>', AccountSupplierRetreiveApi.as_view()),
-    
+    path('api/account/create/', AccountCreateApi.as_view()),
+    path('api/user/create/', UserCreateApi.as_view()),
+    path('api/supplier/create/', SupplierCreateApi.as_view()),
+    path('api/account/update/<int:pk>', AccountUpdateApi.as_view()),
+    path('api/user/update/<int:pk>', UserUpdateApi.as_view()),
+    path('api/supplier/update/<int:pk>', SupplierUpdateApi.as_view()),
+    path('api/account/retrieve/<int:pk>', AccountRetrieveApi.as_view()),
+    path('api/user/retrieve/<int:pk>', UserRetrieveApi.as_view()),
+    path('api/supplier/retrieve/<int:pk>', SupplierRetrieveApi.as_view()),
 ]

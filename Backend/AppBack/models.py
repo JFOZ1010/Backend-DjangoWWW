@@ -13,6 +13,7 @@ class Account(models.Model):
     user_type = models.IntegerField()
     password = models.CharField(max_length = 20)
     email = models.EmailField()
+    user_status = models.BooleanField(default = True)
 
     
 class Supplier(models.Model):
