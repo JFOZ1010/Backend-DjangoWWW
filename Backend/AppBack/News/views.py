@@ -51,14 +51,20 @@ class allNew (generics.ListAPIView):
     permission_classes = [permissions.AllowAny]
     queryset = New.objects.all()
 
-#CLASE PARA BORRAR
-class deleteNew (generics.DestroyAPIView):
+
+
+#crear una clase para eliminar una New, y returne un http 204
+    
+class DeleteNew(generics.DestroyAPIView):
+    serializer_class = NewSerializer
+    model = New
+    permission_classes = [permissions.AllowAny]
+    queryset = New.objects.all()
+
     def delete(self, request, pk, format=None):
-        new = self.get_object(pk)
+        new = self.get_object()
         new.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT) 
-
-
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 """FIN BLOQUE DE CRUD DE NOTICIA
