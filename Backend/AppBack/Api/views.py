@@ -83,3 +83,23 @@ class SupplierRetrieveApi(generics.RetrieveAPIView):
     permission_classes = [permissions.AllowAny]
     queryset = Supplier.objects.all()
 
+##Views para GET / RETREIVE ALL
+
+class RetreiveAllAccounts(generics.ListAPIView):
+    serializer_class = AccountSerializer
+    model = Account
+    permission_classes = [permissions.AllowAny]
+    queryset = Account.objects.all()
+
+class RetreiveAllSuppliers(generics.ListAPIView):
+    serializer_class = SupplierSerializer
+    model = Supplier
+    permission_classes = [permissions.AllowAny]
+    queryset = Supplier.objects.all()
+    
+class RetreiveAllUsers(generics.ListAPIView):
+    serializer_class = UserSerializer
+    model = User
+    permission_classes = [permissions.AllowAny]
+    queryset = User.objects.all()
+    

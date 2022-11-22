@@ -26,6 +26,9 @@ from AppBack.Api.views import (
                                 AccountRetrieveApi,
                                 UserRetrieveApi, 
                                 SupplierRetrieveApi, 
+                                RetreiveAllAccounts,
+                                RetreiveAllSuppliers,
+                                RetreiveAllUsers,
                                 )
 
 urlpatterns = [
@@ -39,4 +42,7 @@ urlpatterns = [
     path('api/account/retrieve/<str:pk>', AccountRetrieveApi.as_view()),
     path('api/user/retrieve/<str:pk>', UserRetrieveApi.as_view()),
     path('api/supplier/retrieve/<str:pk>', SupplierRetrieveApi.as_view()),
+    path('api/retreive_all_accounts', RetreiveAllAccounts.as_view()),
+    path('api/retreive_all_suppliers', RetreiveAllSuppliers.as_view()),
+    path('api/retreive_all_users', RetreiveAllUsers.as_view()),
 ]
