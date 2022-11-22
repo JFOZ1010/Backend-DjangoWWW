@@ -15,13 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from AppBack.News.views import addNews, allNew, DeleteNew
+from AppBack.News.views import addNews, allNew, DeleteNew, UpdateNew
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #path('AppBack/', include('AppBack.urls')),
     path('New/create/',addNews.as_view()),
     path('New/all/',allNew.as_view()),
     path('New/delete/<str:pk>/',DeleteNew.as_view(), name="delete"),
+    path('New/update/<str:pk>/',UpdateNew.as_view(), name = "update")
 
 ]
