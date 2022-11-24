@@ -41,11 +41,18 @@ class addNews (generics.CreateAPIView):
             serializer.save()
             return Response(serializer.data)
         else:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 
 #CLASE PARA LISTAR
 class allNew (generics.ListAPIView):
+    serializer_class = NewSerializer
+    model = New
+    permission_classes = [permissions.AllowAny]
+    queryset = New.objects.all()
+
+#CLASE PARA OBTENER 1 ITEM
+class NewGet(generics.RetrieveAPIView):
     serializer_class = NewSerializer
     model = New
     permission_classes = [permissions.AllowAny]
