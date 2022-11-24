@@ -4,12 +4,16 @@ from AppBack.Api.serializers import (
     UserSerializer, 
     SupplierSerializer, 
     UserSerializerWithoutPk, 
-    SupplierSerializerWithoutPk
+    SupplierSerializerWithoutPk,
+    RetreiveUserAccountSerializer,
+    RetreiveSupAccountSerializer,
+    ActivationAdminSerializer,
 )
 from AppBack.models import Account, User, Supplier
 from rest_framework.response import Response
 from rest_framework import permissions
 from rest_framework import status
+from django.shortcuts import get_object_or_404
 
 
 #Views para CREATE
@@ -102,4 +106,24 @@ class RetreiveAllUsers(generics.ListAPIView):
     model = User
     permission_classes = [permissions.AllowAny]
     queryset = User.objects.all()
+
+class RetreiveAllUserDetailed(generics.ListAPIView):
+    serializer_class = RetreiveUserAccountSerializer
+    model = User
+    permission_classes = [permissions.AllowAny]
+    queryset = User.objects.all()
+
+class RetreiveAllSupsDetailed(generics.ListAPIView):
+    serializer_class = RetreiveSupAccountSerializer
+    model = Supplier
+    permission_classes = [permissions.AllowAny]
+    queryset = Supplier.objects.all()
+
+## Views para activar o desactivar usuario, admin solamente 
+
+class ActivationAdminAPI(generics.UpdateAPIView):
+    serializer_class = ActivationAdminSerializer
+    model = Account
+    permission_classes = [permissions.AllowAny]
+    queryset = Account.objects.all()
     

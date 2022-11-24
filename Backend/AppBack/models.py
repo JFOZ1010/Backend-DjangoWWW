@@ -15,7 +15,6 @@ class Account(models.Model):
     email = models.EmailField()
     user_status = models.BooleanField(default = True)
 
-    
 class Supplier(models.Model):
     user_id = models.ForeignKey(Account, on_delete=models.CASCADE, related_name= 'supplier', primary_key = True)
     supplier_name = models.CharField(max_length = 30)
@@ -27,7 +26,6 @@ class User(models.Model):
     city = models.CharField(max_length = 50)
     birth_date = models.DateField()
     sex = models.CharField(max_length = 20)
-
 
 class History(models.Model):
     history_id = models.AutoField(primary_key=True)

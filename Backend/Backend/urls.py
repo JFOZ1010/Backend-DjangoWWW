@@ -29,6 +29,9 @@ from AppBack.Api.views import (
                                 RetreiveAllAccounts,
                                 RetreiveAllSuppliers,
                                 RetreiveAllUsers,
+                                RetreiveAllUserDetailed,
+                                RetreiveAllSupsDetailed,
+                                ActivationAdminAPI,
                                 )
 
 urlpatterns = [
@@ -42,7 +45,11 @@ urlpatterns = [
     path('api/account/retrieve/<str:pk>', AccountRetrieveApi.as_view()),
     path('api/user/retrieve/<str:pk>', UserRetrieveApi.as_view()),
     path('api/supplier/retrieve/<str:pk>', SupplierRetrieveApi.as_view()),
-    path('api/retreive_all_accounts', RetreiveAllAccounts.as_view()),
-    path('api/retreive_all_suppliers', RetreiveAllSuppliers.as_view()),
-    path('api/retreive_all_users', RetreiveAllUsers.as_view()),
+    path('api/account/retreive/all', RetreiveAllAccounts.as_view()),
+    path('api/supplier/retreive/all', RetreiveAllSuppliers.as_view()),
+    path('api/user/retreive/all', RetreiveAllUsers.as_view()),
+    path('api/user/retreive/all/detailed', RetreiveAllUserDetailed.as_view()),
+    path('api/supplier/retreive/all/detailed', RetreiveAllSupsDetailed.as_view()),
+    path('api/supplier/retreive/all/detailed', RetreiveAllSupsDetailed.as_view()),
+    path('api/admin/update_status/<str:pk>', ActivationAdminAPI.as_view()),
 ]
