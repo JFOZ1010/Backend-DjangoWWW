@@ -42,7 +42,6 @@ class AccountAuthRetrieveApi(APIView):
 
         print("Inicio de obtención token")
         conn = http.client.HTTPSConnection(os.getenv("AUTH0_DOMAIN"))
-        #payload = "{\"client_id\":\"pgZrcTdU8hxWEhRfPITXZh7XUS7ROg6h\",\"client_secret\":\"OIBuojA8YR0lty2IY5b2okeGKSFXocW65SxfIv1XUP4--oI145EGvgmWwwEdC8AC\",\"audience\":\"https://dev-5fl4mhiern6wjoou.us.auth0.com/api/v2/\",\"grant_type\":\"client_credentials\"}"
         payload = "{\"client_id\":\""+ os.getenv('AUTH0_CLIENT_ID')+"\",\"client_secret\":\""+ os.getenv('CLIENT_SECRET')+"\",\"audience\":\"https://"+ os.getenv('AUTH0_DOMAIN')+"/api/v2/\",\"grant_type\":\"client_credentials\"}"
 
         headers = { 'content-type': "application/json" }
@@ -63,9 +62,9 @@ class AccountAuthRetrieveApi(APIView):
         res = conn.getresponse()
         data = res.read()
         user_data = json.loads(data.decode("utf-8"))
-        """
+        
         print("Inicio de busqueda en bd")
-
+        """
 
         #userId = userId.replace("|", "_")
         #print(userId)
@@ -86,4 +85,4 @@ class AccountAuthRetrieveApi(APIView):
             user_status = True
         
         #userId = userId.replace("_", "|")
-        return Response({'authdata': 'por ahora no se puede', 'user_id': userId, 'user_type' : user_type, 'user_status' : user_status, 'token': 'no hay token'})
+        return Response({'authdata': 'no hay', 'user_id': userId, 'user_type' : user_type, 'user_status' : user_status, 'token': 'no hay token'})
