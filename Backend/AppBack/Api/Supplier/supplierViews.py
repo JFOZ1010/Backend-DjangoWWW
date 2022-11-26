@@ -1,5 +1,5 @@
 from rest_framework import generics
-from AppBack.Api.serializers import (
+from .serializers import (
     SupplierSerializer, 
     SupplierSerializerWithoutPk
 )
@@ -29,6 +29,12 @@ class SupplierUpdateApi(generics.UpdateAPIView):
     queryset = Supplier.objects.all()
 
 class SupplierRetrieveApi(generics.RetrieveAPIView):
+    serializer_class = SupplierSerializer
+    model = Supplier
+    permission_classes = [permissions.AllowAny]
+    queryset = Supplier.objects.all()
+
+class RetreiveAllSuppliers(generics.ListAPIView):
     serializer_class = SupplierSerializer
     model = Supplier
     permission_classes = [permissions.AllowAny]

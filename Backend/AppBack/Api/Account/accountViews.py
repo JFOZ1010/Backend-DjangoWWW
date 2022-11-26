@@ -1,9 +1,12 @@
 from rest_framework import generics
-from AppBack.Api.serializers import (
+from .serializers import (
     AccountSerializer, 
-    AccountAuthSerializer
+    AccountAuthSerializer,
+    RetreiveUserAccountSerializer,
+    RetreiveSupAccountSerializer,
+    ActivationAdminSerializer,
 )
-from AppBack.models import Account
+from AppBack.models import Account, User, Supplier
 from rest_framework.response import Response
 from rest_framework import permissions
 from rest_framework import status
@@ -86,3 +89,28 @@ class AccountAuthRetrieveApi(APIView):
         
         #userId = userId.replace("_", "|")
         return Response({'authdata': 'no hay', 'user_id': userId, 'user_type' : user_type, 'user_status' : user_status, 'token': 'no hay token'})
+
+class RetreiveAllAccounts(generics.ListAPIView):
+    serializer_class = AccountSerializer
+    model = Account
+    permission_classes = [permissions.AllowAny]
+    queryset = Account.objects.all()
+
+class ActivationAdminAPI(generics.UpdateAPIView):
+    serializer_class = ActivationAdminSerializer
+    model = Account
+    permission_classes = [permissions.AllowAny]
+    queryset = Account.objects.all()
+
+#VIEWS MIXTAS
+class RetreiveAllUserDetailed(generics.ListAPIView):
+    serializer_class = RetreiveUserAccountSerializer
+    model = User
+    permission_classes = [permissions.AllowAny]
+    queryset = User.objects.all()
+
+class RetreiveAllSupsDetailed(generics.ListAPIView):
+    serializer_class = RetreiveSupAccountSerializer
+    model = Supplier
+    permission_classes = [permissions.AllowAny]
+    queryset = Supplier.objects.all()

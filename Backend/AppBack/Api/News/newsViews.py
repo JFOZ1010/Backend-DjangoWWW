@@ -78,6 +78,7 @@ class UpdateNew (generics.UpdateAPIView):
     permission_classes = [permissions.AllowAny]
     queryset = New.objects.all()
 
+    """
     def put(self, request, pk, format=None):
         new = self.get_object()
         serializer = self.serializer_class(new, data=request.data)
@@ -85,4 +86,5 @@ class UpdateNew (generics.UpdateAPIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    """
 

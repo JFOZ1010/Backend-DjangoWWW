@@ -1,5 +1,5 @@
 from rest_framework import generics
-from AppBack.Api.serializers import (
+from .serializers import (
     UserSerializer,  
     UserSerializerWithoutPk, 
 )
@@ -29,6 +29,12 @@ class UserUpdateApi(generics.UpdateAPIView):
     queryset = User.objects.all()
 
 class UserRetrieveApi(generics.RetrieveAPIView):
+    serializer_class = UserSerializer
+    model = User
+    permission_classes = [permissions.AllowAny]
+    queryset = User.objects.all()
+
+class RetreiveAllUsers(generics.ListAPIView):
     serializer_class = UserSerializer
     model = User
     permission_classes = [permissions.AllowAny]
