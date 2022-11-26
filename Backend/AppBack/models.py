@@ -1,3 +1,5 @@
+from django.db import models
+
 # Create your models here.
 class New(models.Model):
     new_id = models.AutoField(primary_key=True)
@@ -26,7 +28,6 @@ class User(models.Model):
     birth_date = models.DateField()
     sex = models.CharField(max_length = 20)
 
-
 class History(models.Model):
     history_id = models.AutoField(primary_key=True)
     item_date = models.DateField()
@@ -53,4 +54,3 @@ class History_item(models.Model):
 
     class Meta:
         unique_together = (('history_id', 'item_id'))
-
