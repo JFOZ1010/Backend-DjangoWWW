@@ -102,7 +102,7 @@ class ActivationAdminAPI(generics.UpdateAPIView):
     permission_classes = [permissions.AllowAny]
     queryset = Account.objects.all()
 
-#VIEWS MIXTAS
+#VIEWS MIXTASS
 class RetreiveAllUserDetailed(generics.ListAPIView):
     serializer_class = RetreiveUserAccountSerializer
     model = User
