@@ -1,12 +1,10 @@
-from django.db import models
-
 # Create your models here.
 class New(models.Model):
     new_id = models.AutoField(primary_key=True)
     new_title = models.CharField(max_length=25)
     new_date = models.DateField(auto_now_add = True)
     new_image = models.CharField(max_length= 500)
-    new_description = models.CharField(max_length= 300)
+    new_description = models.TextField()
 
 class Account(models.Model):
     user_id = models.CharField(primary_key = True, max_length = 200)
@@ -55,3 +53,4 @@ class History_item(models.Model):
 
     class Meta:
         unique_together = (('history_id', 'item_id'))
+
