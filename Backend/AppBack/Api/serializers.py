@@ -1,0 +1,32 @@
+from rest_framework import serializers
+from AppBack.models import User, Account, Supplier
+
+class AccountSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Account
+        fields = ['user_id', 'user_type', 'password', 'email', 'user_status']
+
+class AccountAuthSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Account
+        fields = ['user_id']
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['user_id', 'user_type', 'name', 'city', 'birth_date', 'sex']
+
+class UserSerializerWithoutPk(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['user_type', 'name', 'city', 'birth_date', 'sex']
+
+class SupplierSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Supplier
+        fields = ['user_id', 'supplier_name']
+
+class SupplierSerializerWithoutPk(serializers.ModelSerializer):
+    class Meta:
+        model = Supplier
+        fields = ['supplier_name']
