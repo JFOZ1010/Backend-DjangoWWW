@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path,include
+from django.urls import path
 from AppBack.News.views import addNews,NewGet, allNew, DeleteNew, UpdateNew
 
 from AppBack.Api.accountViews import (
@@ -41,11 +41,11 @@ from AppBack.Api.views import (
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('New/create/',addNews.as_view()),
-    path('New/all/',allNew.as_view()),
-    path('New/delete/<str:pk>/',DeleteNew.as_view(), name="delete"),
-    path('New/update/<str:pk>/',UpdateNew.as_view(), name = "update"),
-    path('New/get/<str:pk>',NewGet.as_view(), name = 'newGet'),
+    path('api/new/create/',addNews.as_view()),
+    path('api/new/all/',allNew.as_view()),
+    path('api/new/delete/<str:pk>/',DeleteNew.as_view(), name="delete"),
+    path('api/new/update/<str:pk>/',UpdateNew.as_view(), name = "update"),
+    path('api/new/get/<str:pk>',NewGet.as_view(), name = 'newGet'),
     path('api/account/create/', AccountCreateApi.as_view()),
     path('api/user/create/', UserCreateApi.as_view()),
     path('api/supplier/create/', SupplierCreateApi.as_view()),
@@ -59,7 +59,6 @@ urlpatterns = [
     path('api/supplier/retreive/all', RetreiveAllSuppliers.as_view()),
     path('api/user/retreive/all', RetreiveAllUsers.as_view()),
     path('api/user/retreive/all/detailed', RetreiveAllUserDetailed.as_view()),
-    path('api/supplier/retreive/all/detailed', RetreiveAllSupsDetailed.as_view()),
     path('api/supplier/retreive/all/detailed', RetreiveAllSupsDetailed.as_view()),
     path('api/admin/update_status/<str:pk>', ActivationAdminAPI.as_view()),
     path('api/account/retrieve/auth/', AccountAuthRetrieveApi.as_view()),
