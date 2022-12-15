@@ -4,9 +4,12 @@ from django.db import models
 class New(models.Model):
     new_id = models.AutoField(primary_key=True)
     new_title = models.CharField(max_length=25)
-    new_date = models.DateField(auto_now_add = True)
+    prueba = models.IntegerField(max_length=25, null=True)
+    new_date = models.DateField(auto_now_add=True)
     new_image = models.CharField(max_length= 500)
     new_description = models.TextField()
+
+
 
 class Account(models.Model):
     user_id = models.CharField(primary_key = True, max_length = 200)
