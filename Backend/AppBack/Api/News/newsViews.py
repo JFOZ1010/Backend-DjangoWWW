@@ -3,6 +3,10 @@ from AppBack.models import New
 from .serializer import NewSerializer
 from django.shortcuts import get_object_or_404
 from django.utils.datastructures import MultiValueDictKeyError
+from django.core.signals import request_finished, request_started
+from django.dispatch import receiver
+from datetime import datetime, timedelta
+
 
 from rest_framework import generics
 
@@ -14,19 +18,6 @@ from rest_framework import status
 
 
 # Create your views here.
-
-"""INICIA BLOQUE DE CRUD DE NOTICIA"""
-"""@api_view(['GET'])
-def NewOverview(request):
-    new_urls = {
-        'all_items': 'all/',
-        'Add': 'create/',
-        'Update': 'update/pk/',
-        'Delete': 'delete/pk/'
-    }
-
-  
-    return Response(new_urls)"""
 
 #CLASE CREAR
 class addNews (generics.CreateAPIView):
@@ -50,6 +41,21 @@ class allNew (generics.ListAPIView):
     model = New
     permission_classes = [permissions.AllowAny]
     queryset = New.objects.all()
+
+    @receiver(request_started)
+    def receiver_news(sender, **kwargs):
+        for new in New.objects.all():
+            dias = timedelta(days=30)
+
+            if datetime.now().date() - new.new_date > dias:
+                new.delete()
+                print("se borro")
+            else:
+                print("no se borro")
+
+    request_finished.connect(receiver)
+
+
 
 #CLASE PARA OBTENER 1 ITEM
 class NewGet(generics.RetrieveAPIView):
