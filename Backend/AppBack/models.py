@@ -49,7 +49,6 @@ class Item(models.Model):
     item_description = models.CharField(max_length=1000)
     item_url = models.CharField(max_length=1000)
     
-    
 class History_item(models.Model):
     history_id = models.ForeignKey(History, on_delete=models.CASCADE)
     item_id = models.ForeignKey(Item, on_delete=models.CASCADE)
