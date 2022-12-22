@@ -33,6 +33,10 @@ from AppBack.Api.Supplier.supplierViews import (
                                 RetreiveAllSuppliers,
                                 )
 
+from AppBack.Api.Item.itemViews import (
+                                ItemCreateApi,
+                                )
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/new/create',addNews.as_view()),
@@ -56,5 +60,6 @@ urlpatterns = [
     path('api/supplier/retreive/all/detailed', RetreiveAllSupsDetailed.as_view()),
     path('api/admin/update_status/<str:pk>', ActivationAdminAPI.as_view()),
     path('api/auth/retrieve', AccountAuthRetrieveApi.as_view()),
+    path('api/item/create', ItemCreateApi.as_view()),
 ]
 
