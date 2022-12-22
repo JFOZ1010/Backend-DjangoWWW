@@ -49,9 +49,9 @@ class allNew (generics.ListAPIView):
 
             if datetime.now().date() - new.new_date > dias:
                 new.delete()
-                print("se borro")
-            else:
-                print("no se borro")
+                #print("se borro")
+            #else:
+                #print("no se borro")
 
     request_finished.connect(receiver)
 

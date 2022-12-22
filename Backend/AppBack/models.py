@@ -9,7 +9,6 @@ class New(models.Model):
     new_description = models.TextField()
 
 
-
 class Account(models.Model):
     user_id = models.CharField(primary_key = True, max_length = 200)
     user_type = models.IntegerField()
