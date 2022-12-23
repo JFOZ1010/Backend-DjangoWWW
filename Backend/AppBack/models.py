@@ -47,6 +47,7 @@ class Item(models.Model):
     item_picture = models.CharField(max_length=1000)
     item_description = models.CharField(max_length=1000)
     item_url = models.CharField(max_length=1000)
+    item_date = models.DateField()
     
 class History_item(models.Model):
     history_id = models.ForeignKey(History, on_delete=models.CASCADE)
