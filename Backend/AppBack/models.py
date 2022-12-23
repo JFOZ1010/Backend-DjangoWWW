@@ -9,7 +9,6 @@ class New(models.Model):
     new_description = models.TextField()
 
 
-
 class Account(models.Model):
     user_id = models.CharField(primary_key = True, max_length = 200)
     user_type = models.IntegerField()
@@ -42,12 +41,12 @@ class Type(models.Model):
 class Item(models.Model): 
     item_id = models.AutoField(primary_key=True)
     type_id = models.ForeignKey(Type, on_delete=models.CASCADE)
-    item_name = models.CharField(max_length=20)
+    item_name = models.CharField(max_length=200)
     user_id = models.ForeignKey(Supplier, max_length=25, on_delete=models.CASCADE)
     item_price = models.IntegerField()
-    item_picture = models.CharField(max_length=100)
-    item_description = models.CharField(max_length=100)
-    item_url = models.CharField(max_length=100)
+    item_picture = models.CharField(max_length=1000)
+    item_description = models.CharField(max_length=1000)
+    item_url = models.CharField(max_length=1000)
     
     
 class History_item(models.Model):
