@@ -41,13 +41,12 @@ class Type(models.Model):
 class Item(models.Model): 
     item_id = models.AutoField(primary_key=True)
     type_id = models.ForeignKey(Type, on_delete=models.CASCADE)
-    item_name = models.CharField(max_length=200)
+    item_name = models.CharField(max_length=500)
     user_id = models.ForeignKey(Supplier, max_length=25, on_delete=models.CASCADE)
     item_price = models.IntegerField()
     item_picture = models.CharField(max_length=1000)
     item_description = models.CharField(max_length=1000)
     item_url = models.CharField(max_length=1000)
-    
     
 class History_item(models.Model):
     history_id = models.ForeignKey(History, on_delete=models.CASCADE)
