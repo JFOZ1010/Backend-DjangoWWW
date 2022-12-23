@@ -1,5 +1,6 @@
 #importar librerias beautifulsoup
 from bs4 import BeautifulSoup
+from django.shortcuts import render
 import requests
 import psycopg2
 
@@ -34,8 +35,6 @@ def Amazon():
     dolar = int(dolar)
 
 
-    print(dolar)
-
     # una variable que contenga el contenido de la pagina
     soup = BeautifulSoup(r.text, 'html.parser')
     soup2 = BeautifulSoup(r2.text, 'html.parser')
@@ -45,7 +44,7 @@ def Amazon():
     # TITULOS
     titulosPage1 = soup.find_all('span', {'class': 'a-size-medium a-color-base a-text-normal'})
     titulosPage1 = [titulo.text + " " for titulo in titulosPage1]
-    #print("Titulos 1: ", len(titulosPage1))
+    #print("Titulos 1: ", titulosPage1)
 
     titulosPage2 = soup2.find_all('span', {'class': 'a-size-medium a-color-base a-text-normal'})
     titulosPage2 = [titulo.text + " " for titulo in titulosPage2]
@@ -55,13 +54,14 @@ def Amazon():
     # PRECIOS
     preciosPage1 = soup.find_all('span', {'class': 'a-price-whole'})
     preciosPage1 = [precio.text + " " for precio in preciosPage1]
-    #convertir a int con pesos colombianos. 1 dolar = 4762 pesos colombianos
-    preciosPage1 = [int(float(precio)) * dolar for precio in preciosPage1]
-    
-    preciosPage1 = [precio for precio in preciosPage1 if precio != 0]
+    #convertir a float con pesos colombianos. 1 dolar = 4762 pesos colombianos
+    preciosPage1 = [int(float(precio.replace('.',''))) * dolar for precio in preciosPage1] #convierto los precios a flotante. 
+    #preciosPage1 = [int(float(precio)) * dolar for precio in preciosPage1]
 
-    #print("precios1: ", preciosPage1)
-    #print("precios LONG 1: ", len(preciosPage1))
+    
+    #preciosPage1 = [precio for precio in preciosPage1 if precio != 0]
+
+    print("precios LONG 1: ", preciosPage1)
 
 
     preciosPage2 = soup2.find_all('span', {'class': 'a-price-whole'})
@@ -83,7 +83,7 @@ def Amazon():
     linksPage1 = soup.find_all('div', {'class': 'a-section a-spacing-none puis-padding-right-small s-title-instructions-style'})
     linksPage1 = [link.find('h2', {'class': 'a-size-mini a-spacing-none a-color-base s-line-clamp-2'}).find('a', {'class': 'a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal'}).get('href') for link in linksPage1]
     linksPage1 = ["https://www.amazon.com" + link for link in linksPage1] #agregar el dominio a los links
-    #print("links 1: ", len(linksPage1))
+    #print("links 1: ", linksPage1)
 
     linksPage2 = soup2.find_all('div', {'class': 'a-section a-spacing-none puis-padding-right-small s-title-instructions-style'})
     linksPage2 = [link.find('h2', {'class': 'a-size-mini a-spacing-none a-color-base s-line-clamp-2'}).find('a', {'class': 'a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal'}).get('href') for link in linksPage2]
@@ -102,37 +102,6 @@ def Amazon():
     imagenesPage2 = [imagen.find('img', {'class': 's-image'}).get('src') for imagen in imagenesPage2]
     #print("imagenes 2: ", len(imagenesPage2))
 
-    """
-    item_id = models.AutoField(primary_key=True)
-    type_id = models.ForeignKey(Type, on_delete=models.CASCADE)
-    item_name = models.CharField(max_length=20)
-    user_id = models.ForeignKey(Supplier, max_length=25, on_delete=models.CASCADE)
-    item_price = models.IntegerField()
-    item_picture = models.CharField(max_length=100)
-    item_description = models.CharField(max_length=100)
-    item_url = models.CharField(max_length=100)
-    """
-
-    #hacer un dataframe con los datos item_price que es el precio, item_picture que es la imagen, item_url que es el link, item_name que es el titulo   
-    """
-        df = pd.DataFrame({
-        'item_name': titulosPage1 + titulosPage2,
-        'item_price': preciosPage1 + preciosPage2,
-        'item_picture': imagenesPage1 + imagenesPage2,
-        'item_url': linksPage1 + linksPage2
-    })
-
-    """
-
-    #print(df)
-
-    """
-    #engine  a la base de datos postgresql con el nombre de usuario juanfelipeoz, password LBox2vyKMhOjkQ2bwtQMb60HJp8XFnIu , host dpg-cdnrnmha6gdooi7cjf50-a.oregon-postgres.render.com, puerto 5432, database proyect_www
-    engine = create_engine('postgresql://juanfelipeoz: LBox2vyKMhOjkQ2bwtQMb60HJp8XFnIu @dpg-cdnrnmha6gdooi7cjf50-a.oregon-postgres.render.com:5432/proyect_www')
-    #guardar el dataframe en la tabla items de la base de datos
-    df.to_sql('items', engine, if_exists='append', index=False) 
-    """
-
 
     #un JSON con los datos item_name que es el titulo, item_price que es el precio, item_url que es el link, item_picture que es la imagen
     data = { 
@@ -142,12 +111,36 @@ def Amazon():
         'item_picture': imagenesPage1 + imagenesPage2
     }
 
-    """
-    print(len(titulosPage1 + titulosPage2))
-    print(len(preciosPage1 + preciosPage2))
-    print(len(linksPage1 + linksPage2))
-    print(len(imagenesPage1 + imagenesPage2))
-    """
+    #metodo que recibe el JSON  y lo envía a la vista de item para que se envie a la base de datos
+
+    def send_data(request):
+        data = {
+            'item_name': titulosPage1 + titulosPage2,
+            'item_price': preciosPage1 + preciosPage2,
+            'item_url': linksPage1 + linksPage2,
+            'item_picture': imagenesPage1 + imagenesPage2
+        }
+        #render a la vista ItemCreateApi2
+
+        return render(request, 'ItemCreateApi2', data)
+
+    productos = [ ]
+
+    for i in range(len(linksPage1)): 
+        diccionarioProducto = {
+            'type_id': 4,
+            'user_id': 'auth0|638b682bbc99c67d7152083b',
+            'item_name': titulosPage1[i], 
+            'item_price': preciosPage1[i],
+            'item_url': linksPage1[i],
+            'item_picture': imagenesPage1[i],
+            'item_description': 'Detalle del producto'
+        }
+        productos.append(diccionarioProducto)
+
+    url = 'http://127.0.0.1:6060/api/item/create2'
+    x = requests.post(url, json = productos)
+    #print(x.text)
 
 
 Amazon()

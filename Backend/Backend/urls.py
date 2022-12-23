@@ -34,7 +34,7 @@ from AppBack.Api.Supplier.supplierViews import (
                                 )
 
 from AppBack.Api.Item.itemViews import (
-                                ItemCreateApi,
+                                ItemCreateApi, ItemCreateApi2
                                 )
 
 urlpatterns = [
@@ -61,5 +61,6 @@ urlpatterns = [
     path('api/admin/update_status/<str:pk>', ActivationAdminAPI.as_view()),
     path('api/auth/retrieve', AccountAuthRetrieveApi.as_view()),
     path('api/item/create', ItemCreateApi.as_view()),
+    path('api/item/create2', ItemCreateApi2.as_view())
 ]
 
