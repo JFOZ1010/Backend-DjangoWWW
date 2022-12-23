@@ -1,11 +1,7 @@
 #importar librerias beautifulsoup
 from bs4 import BeautifulSoup
 import requests
-import pandas as pd
 import psycopg2
-import sqlalchemy
-from sqlalchemy import create_engine
-import unittest
 
 
 def Amazon():
@@ -118,19 +114,24 @@ def Amazon():
     """
 
     #hacer un dataframe con los datos item_price que es el precio, item_picture que es la imagen, item_url que es el link, item_name que es el titulo   
-    df = pd.DataFrame({
+    """
+        df = pd.DataFrame({
         'item_name': titulosPage1 + titulosPage2,
         'item_price': preciosPage1 + preciosPage2,
         'item_picture': imagenesPage1 + imagenesPage2,
         'item_url': linksPage1 + linksPage2
     })
 
-    print(df)
+    """
 
+    #print(df)
+
+    """
     #engine  a la base de datos postgresql con el nombre de usuario juanfelipeoz, password LBox2vyKMhOjkQ2bwtQMb60HJp8XFnIu , host dpg-cdnrnmha6gdooi7cjf50-a.oregon-postgres.render.com, puerto 5432, database proyect_www
     engine = create_engine('postgresql://juanfelipeoz: LBox2vyKMhOjkQ2bwtQMb60HJp8XFnIu @dpg-cdnrnmha6gdooi7cjf50-a.oregon-postgres.render.com:5432/proyect_www')
     #guardar el dataframe en la tabla items de la base de datos
-    df.to_sql('items', engine, if_exists='append', index=False)
+    df.to_sql('items', engine, if_exists='append', index=False) 
+    """
 
 
     #un JSON con los datos item_name que es el titulo, item_price que es el precio, item_url que es el link, item_picture que es la imagen

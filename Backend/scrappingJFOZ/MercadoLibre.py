@@ -1,10 +1,7 @@
 #importar librerias beautifulsoup
 from bs4 import BeautifulSoup
 import requests
-import pandas as pd
 import psycopg2
-import sqlalchemy
-from sqlalchemy import create_engine
 
 def mercadoLibre():
 
