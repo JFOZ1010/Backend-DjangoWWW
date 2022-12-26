@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import json
 from unidecode import unidecode
+from datetime import date
 
 def parseInfoAmazon(producto, type_id, user_id, dollarToday):
     enlace = producto.find(class_ = 'a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal')
@@ -17,7 +18,8 @@ def parseInfoAmazon(producto, type_id, user_id, dollarToday):
             "item_description" : "details",
             "item_url" : str('https://www.amazon.com' + enlace['href']),
             "type_id" : type_id,
-            "user_id" : user_id
+            "user_id" : user_id,
+            "item_date": date.today().strftime("%Y-%m-%d")
         }
         return product_data
     else:

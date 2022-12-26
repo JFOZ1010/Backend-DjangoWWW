@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import json
+from datetime import date
 
 def parseInfowNewegg(producto, type_id, user_id, dollarToday):
     enlace = producto.find(class_ = 'item-title')
@@ -16,7 +17,8 @@ def parseInfowNewegg(producto, type_id, user_id, dollarToday):
             "item_description" : "details",
             "item_url" : str(enlace['href']),
             "type_id" : type_id,
-            "user_id" : user_id
+            "user_id" : user_id,
+            "item_date": date.today().strftime("%Y-%m-%d")
         }
         return product_data
     else:

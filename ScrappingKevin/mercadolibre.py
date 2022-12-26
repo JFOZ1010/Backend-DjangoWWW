@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import json
+from datetime import date
 
 def parseInfoMercadolibre(producto, type_id, user_id):
     enlace = producto.find(class_ = 'ui-search-item__group__element shops__items-group-details ui-search-link')
@@ -15,7 +16,8 @@ def parseInfoMercadolibre(producto, type_id, user_id):
         "item_description" : "details",
         "item_url" : str(enlace['href']),
         "type_id" : type_id,
-        "user_id" : user_id
+        "user_id" : user_id,
+        "item_date": date.today().strftime("%Y-%m-%d")
     }
     return product_data
 
