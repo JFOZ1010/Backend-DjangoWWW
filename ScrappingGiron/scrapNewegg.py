@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from lxml import etree
 import json
+from datetime import date
 
 
 def scrapNewegg(url,typeId):
@@ -12,6 +13,7 @@ def scrapNewegg(url,typeId):
     }
     result = requests.get(url, headers=HEADER)
     content = result.text
+    #print(content)
     soup = BeautifulSoup(content, 'html.parser')
 
     mlresponse = {
@@ -38,8 +40,8 @@ def scrapNewegg(url,typeId):
     dolar = float(auxdolar)
     #print(dolar)
     #FIN DEL BLOQUE DE CONVERSION DE DOLAR A PESOS#
-
-    for i in range(0, 8, 1):
+    print(len(namesUrl))
+    for i in range(0, len(namesUrl), 1):
         innerResult = requests.get(
             namesUrl[i]['href'], headers=HEADER)
         innerContent = innerResult.text
@@ -61,10 +63,10 @@ def scrapNewegg(url,typeId):
             "item_price": int(float(auxPrice[1:]) * dolar),
             "item_url": namesUrl[i]['href'],
             "item_picture": img[0]['src'],
-            "type-id":typeId,
             "item_description" : "generic description",
             "user_id":"auth0|639e3f6e9c43cd6f74e81ba0",
-            "type-id":typeId
+            "type_id":typeId,
+            'item_date': date.today().strftime('%Y-%m-%d') 
         })
 
     mlResponseJson = json.dumps(mlresponse, indent=4)
@@ -79,40 +81,40 @@ def scrapNewegg(url,typeId):
 #MEMORIAS RAM CRUCIAL
 hyperx = scrapNewegg('https://www.newegg.com/p/pl?N=500000512%20600561665%20100007611%2050001455&d=crucial+memory+ram',2)
 
-#MEMORIAS RAM HYPERX
+# #MEMORIAS RAM HYPERX
 crucial = scrapNewegg('https://www.newegg.com/p/pl?N=600561665%20100007611%2050011776%20500000512&d=memory+ram',2)
 
-#MEMORIAS RAM KINGSTON
-kingston = scrapNewegg('https://www.newegg.com/p/pl?d=memory+ram&N=50001183%20600561665%20100007611',2)
+# #MEMORIAS RAM KINGSTON
+# kingston = scrapNewegg('https://www.newegg.com/p/pl?d=memory+ram&N=50001183%20600561665%20100007611',2)
 
-#TARJETAS GRAFICAS SERIE RTX30
-rtx30 = scrapNewegg('https://www.newegg.com/p/pl?d=GPU&N=50001441%20601357282%20100007709',3)
+# #TARJETAS GRAFICAS SERIE RTX30
+# rtx30 = scrapNewegg('https://www.newegg.com/p/pl?d=GPU&N=50001441%20601357282%20100007709',3)
 
-#TARJETAS GRAFICAS SERIE RTX20
-rtx20 = scrapNewegg('https://www.newegg.com/p/pl?N=50001441%20100007709%20601321572&d=GPU',3)
+# #TARJETAS GRAFICAS SERIE RTX20
+# rtx20 = scrapNewegg('https://www.newegg.com/p/pl?N=50001441%20100007709%20601321572&d=GPU',3)
 
-#TARJETAS GRAFICAS SERIE GTX16
-gtx16 = scrapNewegg('https://www.newegg.com/p/pl?N=100007709%20601331379&d=GPU+NVIDIA',3)
+# #TARJETAS GRAFICAS SERIE GTX16
+# gtx16 = scrapNewegg('https://www.newegg.com/p/pl?N=100007709%20601331379&d=GPU+NVIDIA',3)
 
 
 ##SUBMIT##
 
 URL = 'http://127.0.0.1:6060/api/item/create2'
-
+print(hyperx)
 submit = requests.post(URL,json = hyperx)
 print("HyperX enviado")
 
-submit = requests.post(URL,json = crucial)
-print("Crucial enviado")
+# submit = requests.post(URL,json = crucial)
+# print("Crucial enviado")
 
-submit = requests.post(URL,json = kingston)
-print("Kingston enviado")
+# submit = requests.post(URL,json = kingston)
+# print("Kingston enviado")
 
-submit = requests.post(URL,json = rtx30)
-print("RTX30 enviado")
+# submit = requests.post(URL,json = rtx30)
+# print("RTX30 enviado")
 
-submit = requests.post(URL,json = rtx20)
-print("RTX20 enviado")
+# submit = requests.post(URL,json = rtx20)
+# print("RTX20 enviado")
 
-submit = requests.post(URL,json = gtx16)
-print("GTX16 enviado")
+# submit = requests.post(URL,json = gtx16)
+# print("GTX16 enviado")

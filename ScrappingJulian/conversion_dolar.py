@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+from datetime import date
 
 url_dolar = 'https://dolar.wilkinsonpc.com.co/'
 
@@ -19,3 +20,7 @@ def dolar_convert():
     return auxPrecio
 
 
+def getFecha():
+    fecha = date.today().strftime('%m/%d/%Y')
+    ## print(fecha)
+    return fecha
