@@ -13,6 +13,7 @@ def scrapNewegg(url,typeId):
     }
     result = requests.get(url, headers=HEADER)
     content = result.text
+    #print(content)
     soup = BeautifulSoup(content, 'html.parser')
 
     mlresponse = {
@@ -80,20 +81,20 @@ def scrapNewegg(url,typeId):
 #MEMORIAS RAM CRUCIAL
 hyperx = scrapNewegg('https://www.newegg.com/p/pl?N=500000512%20600561665%20100007611%2050001455&d=crucial+memory+ram',2)
 
-#MEMORIAS RAM HYPERX
+# #MEMORIAS RAM HYPERX
 crucial = scrapNewegg('https://www.newegg.com/p/pl?N=600561665%20100007611%2050011776%20500000512&d=memory+ram',2)
 
-#MEMORIAS RAM KINGSTON
-kingston = scrapNewegg('https://www.newegg.com/p/pl?d=memory+ram&N=50001183%20600561665%20100007611',2)
+# #MEMORIAS RAM KINGSTON
+# kingston = scrapNewegg('https://www.newegg.com/p/pl?d=memory+ram&N=50001183%20600561665%20100007611',2)
 
-#TARJETAS GRAFICAS SERIE RTX30
-rtx30 = scrapNewegg('https://www.newegg.com/p/pl?d=GPU&N=50001441%20601357282%20100007709',3)
+# #TARJETAS GRAFICAS SERIE RTX30
+# rtx30 = scrapNewegg('https://www.newegg.com/p/pl?d=GPU&N=50001441%20601357282%20100007709',3)
 
-#TARJETAS GRAFICAS SERIE RTX20
-rtx20 = scrapNewegg('https://www.newegg.com/p/pl?N=50001441%20100007709%20601321572&d=GPU',3)
+# #TARJETAS GRAFICAS SERIE RTX20
+# rtx20 = scrapNewegg('https://www.newegg.com/p/pl?N=50001441%20100007709%20601321572&d=GPU',3)
 
-#TARJETAS GRAFICAS SERIE GTX16
-gtx16 = scrapNewegg('https://www.newegg.com/p/pl?N=100007709%20601331379&d=GPU+NVIDIA',3)
+# #TARJETAS GRAFICAS SERIE GTX16
+# gtx16 = scrapNewegg('https://www.newegg.com/p/pl?N=100007709%20601331379&d=GPU+NVIDIA',3)
 
 
 ##SUBMIT##
@@ -103,17 +104,17 @@ print(hyperx)
 submit = requests.post(URL,json = hyperx)
 print("HyperX enviado")
 
-submit = requests.post(URL,json = crucial)
-print("Crucial enviado")
+# submit = requests.post(URL,json = crucial)
+# print("Crucial enviado")
 
-submit = requests.post(URL,json = kingston)
-print("Kingston enviado")
+# submit = requests.post(URL,json = kingston)
+# print("Kingston enviado")
 
-submit = requests.post(URL,json = rtx30)
-print("RTX30 enviado")
+# submit = requests.post(URL,json = rtx30)
+# print("RTX30 enviado")
 
-submit = requests.post(URL,json = rtx20)
-print("RTX20 enviado")
+# submit = requests.post(URL,json = rtx20)
+# print("RTX20 enviado")
 
-submit = requests.post(URL,json = gtx16)
-print("GTX16 enviado")
+# submit = requests.post(URL,json = gtx16)
+# print("GTX16 enviado")
