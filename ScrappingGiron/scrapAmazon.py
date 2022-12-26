@@ -43,7 +43,7 @@ def scrapAmazon(url,typeId):
 
     #FIN DEL BLOQUE DE CONVERSION DE DOLAR A PESOS#
 
-    for i in range(0, 8, 1):
+    for i in range(0, len(urls), 1):
         innerResult = requests.get(
             'https://www.amazon.com'+urls[i]['href'], headers=HEADER)
         innerContent = innerResult.text
@@ -70,7 +70,7 @@ def scrapAmazon(url,typeId):
             "item_description" : "generic description",
             "user_id":"auth0|638b682bbc99c67d7152083b",
             "type_id":typeId,
-            'item_date': date.today().strftime('%m/%d/%Y')
+            'item_date': date.today().strftime('%Y-%m-%d') 
         })
 
     mlResponseJson = json.dumps(mlresponse, indent=4)
@@ -81,13 +81,13 @@ def scrapAmazon(url,typeId):
 
 
 #MEMORIAS RAM CRUCIAL
-crucial = scrapAmazon('https://www.amazon.com/s?k=memoria+ram+ddr4+8gb&i=electronics&rh=n%3A172500%2Cp_89%3ACrucial%2Cp_n_feature_five_browse-bin%3A677427011&dc&language=es&ds=v1%3AsyEVmcL0wsjBkvhpPop%2Bbf3bwXrxlDvP4%2BuixOIAi5M&crid=3U2SXGALCNWVS&qid=1671655664&rnid=673240011&sprefix=memoria+ram+%2Caps%2C443&ref=sr_nr_p_n_feature_five_browse-bin_6',2)
+#crucial = scrapAmazon('https://www.amazon.com/s?k=memoria+ram+ddr4+8gb&i=electronics&rh=n%3A172500%2Cp_89%3ACrucial%2Cp_n_feature_five_browse-bin%3A677427011&dc&language=es&ds=v1%3AsyEVmcL0wsjBkvhpPop%2Bbf3bwXrxlDvP4%2BuixOIAi5M&crid=3U2SXGALCNWVS&qid=1671655664&rnid=673240011&sprefix=memoria+ram+%2Caps%2C443&ref=sr_nr_p_n_feature_five_browse-bin_6',2)
 
 #MEMORIAS RAM HYPERX
-hyperx = scrapAmazon('https://www.amazon.com/s?k=memoria+ram+ddr4+8gb+hyper+x&i=computers&rh=n%3A172500%2Cp_89%3AHyperX&dc&language=es&ds=v1%3ADbtkK6YYgFHw0%2BvvH7wogu%2FVoq1L4qh%2B38yoRQtd4JE&__mk_es_US=%C3%85M%C3%85%C5%BD%C3%95%C3%91&qid=1671656737&rnid=2528832011&ref=sr_nr_p_89_6',2)
+#hyperx = scrapAmazon('https://www.amazon.com/s?k=memoria+ram+ddr4+8gb+hyper+x&i=computers&rh=n%3A172500%2Cp_89%3AHyperX&dc&language=es&ds=v1%3ADbtkK6YYgFHw0%2BvvH7wogu%2FVoq1L4qh%2B38yoRQtd4JE&__mk_es_US=%C3%85M%C3%85%C5%BD%C3%95%C3%91&qid=1671656737&rnid=2528832011&ref=sr_nr_p_89_6',2)
 
 #MEMORIAS RAM KINGSTON
-kingston = scrapAmazon('https://www.amazon.com/-/es/s?k=memoria+ram+ddr4+8gb&i=electronics&bbn=172500&rh=n%3A172500%2Cp_n_feature_five_browse-bin%3A677427011%2Cp_89%3AKingston&dc&language=es&crid=3U2SXGALCNWVS&qid=1671656679&rnid=2528832011&sprefix=memoria+ram+%2Caps%2C443&ref=sr_nr_p_89_1&ds=v1%3ATIiQ0lJwyEtH3Ds6Ww91Nd2YWUc%2FW2g0eprMjmgj778',2)
+#kingston = scrapAmazon('https://www.amazon.com/-/es/s?k=memoria+ram+ddr4+8gb&i=electronics&bbn=172500&rh=n%3A172500%2Cp_n_feature_five_browse-bin%3A677427011%2Cp_89%3AKingston&dc&language=es&crid=3U2SXGALCNWVS&qid=1671656679&rnid=2528832011&sprefix=memoria+ram+%2Caps%2C443&ref=sr_nr_p_89_1&ds=v1%3ATIiQ0lJwyEtH3Ds6Ww91Nd2YWUc%2FW2g0eprMjmgj778',2)
 
 #TARJETAS GRAFICAS SERIE RTX30
 rtx30 =scrapAmazon('https://www.amazon.com/s?k=GPU+NVIDIA+RTX+SERIE+30&rh=n%3A284822&__mk_es_US=%C3%85M%C3%85%C5%BD%C3%95%C3%91&ref=nb_sb_noss',3)
@@ -98,15 +98,15 @@ rtx30 =scrapAmazon('https://www.amazon.com/s?k=GPU+NVIDIA+RTX+SERIE+30&rh=n%3A28
 #SUBMIT
 URL = 'http://127.0.0.1:6060/api/item/create2'
 
-submit = requests.post(URL,json = hyperx)
-print("HyperX enviado")
+# submit = requests.post(URL,json = hyperx)
+# print("HyperX enviado")
 
-submit = requests.post(URL,json = crucial)
-print("Crucial enviado")
+# submit = requests.post(URL,json = crucial)
+# print("Crucial enviado")
 
-submit = requests.post(URL,json = kingston)
-print("Kingston enviado")
-
+# submit = requests.post(URL,json = kingston)
+# print("Kingston enviado")
+print(rtx30)
 submit = requests.post(URL,json = rtx30)
 print("RTX30 enviado")
 

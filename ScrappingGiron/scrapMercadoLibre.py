@@ -37,7 +37,7 @@ def scrapMercadoLibre(url,typeId):
             "item_description" : "generic description",
             "user_id":"auth0|639e3ee1aacda0152647f763",
             "type_id":typeId,
-            'item_date': date.today().strftime('%m/%d/%Y')
+            'item_date': date.today().strftime('%Y-%m-%d') 
 
         })
 

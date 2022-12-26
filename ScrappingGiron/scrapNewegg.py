@@ -39,7 +39,7 @@ def scrapNewegg(url,typeId):
     dolar = float(auxdolar)
     #print(dolar)
     #FIN DEL BLOQUE DE CONVERSION DE DOLAR A PESOS#
-
+    print(len(namesUrl))
     for i in range(0, len(namesUrl), 1):
         innerResult = requests.get(
             namesUrl[i]['href'], headers=HEADER)
@@ -65,7 +65,7 @@ def scrapNewegg(url,typeId):
             "item_description" : "generic description",
             "user_id":"auth0|639e3f6e9c43cd6f74e81ba0",
             "type_id":typeId,
-            'item_date': date.today().strftime('%m/%d/%Y')
+            'item_date': date.today().strftime('%Y-%m-%d') 
         })
 
     mlResponseJson = json.dumps(mlresponse, indent=4)
@@ -99,7 +99,7 @@ gtx16 = scrapNewegg('https://www.newegg.com/p/pl?N=100007709%20601331379&d=GPU+N
 ##SUBMIT##
 
 URL = 'http://127.0.0.1:6060/api/item/create2'
-
+print(hyperx)
 submit = requests.post(URL,json = hyperx)
 print("HyperX enviado")
 
