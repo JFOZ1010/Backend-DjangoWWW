@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from lxml import etree
 import json
+from datetime import date
 
 
 def scrapAmazon(url,typeId):
@@ -68,7 +69,8 @@ def scrapAmazon(url,typeId):
             "item_picture": img[0]['src'],
             "item_description" : "generic description",
             "user_id":"auth0|638b682bbc99c67d7152083b",
-            "type_id":typeId
+            "type_id":typeId,
+            'item_date': date.today().strftime('%m/%d/%Y')
         })
 
     mlResponseJson = json.dumps(mlresponse, indent=4)
