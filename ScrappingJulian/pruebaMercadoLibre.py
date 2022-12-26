@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+from conversion_dolar import getFecha
 
 urls_mercadoLibre = {
     'RX500series' : { 'type': 3, 'link': 'https://listado.mercadolibre.com.co/computacion/componentes-pc/tarjetas/tarjetas-video/radeon-rx-500-series/radeon-rx-500_NoIndex_True#applied_filter_id%3DSERIES%26applied_filter_name%3DSerie%26applied_filter_order%3D9%26applied_value_id%3D7038739%26applied_value_name%3DRadeon+RX+500+Series%26applied_value_order%3D1%26applied_value_results%3D163%26is_custom%3Dfalse'},
@@ -14,6 +15,7 @@ urls_mercadoLibre = {
 response = {
     "products" : []
 }
+
 
 def ScrappyML(urls):
     content = requests.get(urls['link']).text
@@ -39,7 +41,8 @@ def ScrappyML(urls):
             "item_price": auxPrecio,
             "type_id" : urls['type'],
             'item_description': 'details',
-            'user_id': 'auth0|639e3ee1aacda0152647f763'
+            'user_id': 'auth0|639e3ee1aacda0152647f763',
+            'item_date': getFecha()
         })
     ## responseJson = json.dumps(response, indent = 4)
     ## print(responseJson, 'Num productos: ', len(response["products"]))
