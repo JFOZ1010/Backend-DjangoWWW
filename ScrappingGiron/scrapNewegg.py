@@ -40,7 +40,7 @@ def scrapNewegg(url,typeId):
     #print(dolar)
     #FIN DEL BLOQUE DE CONVERSION DE DOLAR A PESOS#
 
-    for i in range(0, 8, 1):
+    for i in range(0, len(namesUrl), 1):
         innerResult = requests.get(
             namesUrl[i]['href'], headers=HEADER)
         innerContent = innerResult.text
@@ -62,10 +62,9 @@ def scrapNewegg(url,typeId):
             "item_price": int(float(auxPrice[1:]) * dolar),
             "item_url": namesUrl[i]['href'],
             "item_picture": img[0]['src'],
-            "type-id":typeId,
             "item_description" : "generic description",
             "user_id":"auth0|639e3f6e9c43cd6f74e81ba0",
-            "type-id":typeId,
+            "type_id":typeId,
             'item_date': date.today().strftime('%m/%d/%Y')
         })
 
