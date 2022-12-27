@@ -2,7 +2,7 @@
 from bs4 import BeautifulSoup
 from django.shortcuts import render
 import requests
-import psycopg2
+from datetime import date
 
 
 def Amazon():
@@ -134,7 +134,8 @@ def Amazon():
             'item_price': preciosPage1[i],
             'item_url': linksPage1[i],
             'item_picture': imagenesPage1[i],
-            'item_description': 'Detalle del producto'
+            'item_description': 'Detalle del producto', 
+            'item_date': date.today().strftime('%Y-%m-%')
         }
         productos.append(diccionarioProducto)
 

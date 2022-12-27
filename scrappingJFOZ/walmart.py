@@ -1,7 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
-import psycopg2
-
+from datetime import date
 
 
 def Walmart():
@@ -92,6 +91,26 @@ def Walmart():
     imagenesPage2 = soup2.find_all('div', {'class': 'relative overflow-hidden'})
     imagenesPage2 = [imagen.find('img', {'class': 'absolute top-0 left-0'})['src'] for imagen in imagenesPage2]
     #print("IMAGES 2: ", len(imagenesPage2))
+
+
+    #UNIR TODOS LOS DATOS EN UN SOLO ARREGLO
+    productos = [ ]
+
+    for i in range(len(urls)):
+        diccionarioProducto = {
+            'type_id': 4, 
+            'user_id': 'auth0|639e3ee1aacda0152647f763',
+            'item_url': urls[i],
+            'item_name': titulosPage1[i],
+            'item_price': preciosPage1[i],
+            'item_picture': imagenesPage1[i],
+            'item_description': 'Description Generic', 
+            'item_date': date.today().strftime('%Y-%m-%')
+        } 
+        productos.append(diccionarioProducto)
+
+    url = 'http://127.0.0.1:6060/api/item/create2'
+    x = requests.post(url, json = productos)
 
 
    

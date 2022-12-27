@@ -1,7 +1,7 @@
 #importar librerias beautifulsoup
 from bs4 import BeautifulSoup
 import requests
-import psycopg2
+from datetime import date
 
 def mercadoLibre():
 
@@ -43,7 +43,8 @@ def mercadoLibre():
             'item_price': precios[i],
             'item_url': urls[i],
             'item_picture': imagenes[i],
-            'item_description': 'Detalle del producto'
+            'item_description': 'Detalle del producto', 
+            'item_date': date.today().strftime('%Y-%m-%')
         }
         productos.append(diccionarioProducto)
     #print("Productos: ", productos)

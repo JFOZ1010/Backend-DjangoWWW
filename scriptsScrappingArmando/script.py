@@ -1,6 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-from lxml import etree
 import json
 
 ####Scrapping de mercadolibre para intel core i3, i5 e i7:

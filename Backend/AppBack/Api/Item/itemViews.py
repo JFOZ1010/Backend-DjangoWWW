@@ -24,3 +24,9 @@ class ItemCreateApi2(APIView):
             serialized.save()
             return Response(serialized.data, status = status.HTTP_201_CREATED)
         return Response(serialized._errors, status = status.HTTP_400_BAD_REQUEST)
+
+class AllItems(generics.ListAPIView):
+    serializer_class = ItemSerializer
+    model = Item
+    permission_classes = [permissions.AllowAny]
+    queryset = Item.objects.all()

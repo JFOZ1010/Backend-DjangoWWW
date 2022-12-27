@@ -36,6 +36,7 @@ from AppBack.Api.Supplier.supplierViews import (
 from AppBack.Api.Item.itemViews import (
                                 ItemCreateApi,
                                 ItemCreateApi2,
+                                AllItems,
                                 )
 
 urlpatterns = [
@@ -63,5 +64,6 @@ urlpatterns = [
     path('api/auth/retrieve', AccountAuthRetrieveApi.as_view()),
     path('api/item/create', ItemCreateApi.as_view()),
     path('api/item/create2', ItemCreateApi2.as_view()),
+    path('api/item/all', AllItems.as_view()),
 ]
 
