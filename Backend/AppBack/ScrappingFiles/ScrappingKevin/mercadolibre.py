@@ -81,5 +81,4 @@ def mercadolibre():
     #print (json.dumps(dataR5[0], indent=2, default=str))
     #print (json.dumps(dataR7[0], indent=2, default=str))
 
-mercadolibre()
 

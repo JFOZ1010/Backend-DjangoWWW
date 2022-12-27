@@ -76,4 +76,3 @@ def newegg():
     dataFull = dataR3 + dataR5and7
     res = requests.post(backurl, json = dataFull)
         
-newegg()

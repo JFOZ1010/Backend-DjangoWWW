@@ -90,8 +90,6 @@ def amazon():
 
     backurl = 'http://localhost:6060/api/item/create2'
 
-    dataFull = dataR3 + dataR5 + dataR7
+    #dataFull = dataR3 + dataR5 + dataR7
+    dataFull = dataR3[:1]
     res = requests.post(backurl, json = dataFull)
-
-
-amazon()
