@@ -74,5 +74,6 @@ def newegg():
     backurl = 'http://localhost:6060/api/item/create2'
 
     dataFull = dataR3 + dataR5and7
+    dataFull = dataFull[:1]
     res = requests.post(backurl, json = dataFull)
         

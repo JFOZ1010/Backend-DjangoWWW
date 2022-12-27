@@ -44,6 +44,7 @@ class ScrappingAmazon(APIView):
     def post(self, request):
         try:
             amazonKevin()
+
         except Exception as e:
             print(str(e))
             return Response({ 'res' : 400, 'error': str(e)}, status = status.HTTP_400_BAD_REQUEST)
