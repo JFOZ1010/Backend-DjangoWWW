@@ -72,7 +72,7 @@ def mercadolibre():
     backurl = 'http://localhost:6060/api/item/create2'
 
     dataFull = dataR3[:10] + dataR5[:10] + dataR7[:10]
-    dataFull = dataFull[:1]
+    #dataFull = dataFull[:1]
     res = requests.post(backurl, json = dataFull)
 
     #print(len(dataR3))

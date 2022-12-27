@@ -21,6 +21,6 @@ def dolar_convert():
 
 
 def getFecha():
-    fecha = date.today().strftime('%m/%d/%Y')
+    fecha = date.today().strftime("%Y-%m-%d")
     ## print(fecha)
     return fecha

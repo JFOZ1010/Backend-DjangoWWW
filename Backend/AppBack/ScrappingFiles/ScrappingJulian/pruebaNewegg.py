@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import json
-from conversion_dolar import dolar_convert, getFecha
+from .conversion_dolar import dolar_convert, getFecha
 
 urls_newegg = {
     'RX500series' : { 'type': 3, 'link': 'https://www.newegg.com/p/pl?d=rx+500+series'},
@@ -28,6 +28,7 @@ def ScrappyEgg(urls):
     soup = BeautifulSoup(content, 'html.parser')
     LINK = soup.find_all('a', class_ = 'item-title')
     ## Ingresamos a cada producto y sacamos su imagen, precio y nombre
+    LINK = LINK[:1]
     for i in LINK:
         resultClicked = requests.get(i['href'], headers = HEADER)
         resultContent = resultClicked.text
@@ -48,7 +49,7 @@ def ScrappyEgg(urls):
             "item_picture": IMG[0]['src'],
             "item_url": i['href'],
             "item_name": NOMBRE[0].text,
-            "item_price": pesoCOP*auxPrecio,
+            "item_price": int(pesoCOP*auxPrecio),
             'type_id' : urls['type'],
             'item_description': 'details',
             'user_id': 'auth0|639e3f6e9c43cd6f74e81ba0',

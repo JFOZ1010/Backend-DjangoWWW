@@ -57,6 +57,7 @@ class ScrappingNewegg(APIView):
     def post(self, request):
         try:
             neweggKevin()
+
         except Exception as e:
             print(str(e))
             return Response({ 'res' : 400, 'error': str(e)}, status = status.HTTP_400_BAD_REQUEST)
@@ -69,6 +70,7 @@ class ScrappingMercadolibre(APIView):
     def post(self, request):
         try:
             mercadolibreKevin()
+
         except Exception as e:
             print(str(e))
             return Response({ 'res' : 400, 'error': str(e)}, status = status.HTTP_400_BAD_REQUEST)
