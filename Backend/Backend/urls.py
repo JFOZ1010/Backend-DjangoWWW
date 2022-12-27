@@ -64,6 +64,10 @@ urlpatterns = [
     path('api/auth/retrieve', AccountAuthRetrieveApi.as_view()),
     path('api/item/create', ItemCreateApi.as_view()),
     path('api/item/create2', ItemCreateApi2.as_view()),
+<<<<<<< HEAD
     path('api/item/all', AllItems.as_view()),
+=======
+    path('api/item/allItems', AllItems.as_view()),
+>>>>>>> 96dbe72ba95c41c17f0d626324c4a704ed83b2af
 ]
 

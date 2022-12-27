@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from lxml import etree
 import json
-
+from datetime import date
 
 def scrapMercadoLibre(url,typeId):
     print(url)
@@ -36,7 +36,9 @@ def scrapMercadoLibre(url,typeId):
             "item_picture": img[0]['src'],
             "item_description" : "generic description",
             "user_id":"auth0|639e3ee1aacda0152647f763",
-            "type_id":typeId
+            "type_id":typeId,
+            'item_date': date.today().strftime('%Y-%m-%d') 
+
         })
 
     mlResponseJson = json.dumps(mlresponse, indent=4)

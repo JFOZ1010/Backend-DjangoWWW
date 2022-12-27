@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from conversion_dolar import dolar_convert
+from conversion_dolar import dolar_convert, getFecha
 
 urls_amazon = {
     'RX500series' : { 'type': 3, 'link': 'https://www.amazon.com/s?k=radeon+rx+500+series&__mk_es_US=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=1ZGZT1NJVU8XJ&sprefix=radeon+rx+500+serie%2Caps%2C152&ref=nb_sb_noss_2'},
@@ -50,7 +50,8 @@ def ScrappyAmzn(urls):
             "item_price": pesoCOP*auxPrice,
             "type" : urls['type'],
             'item_description': 'details',
-            'user_id': 'auth0|638b682bbc99c67d7152083b'
+            'user_id': 'auth0|638b682bbc99c67d7152083b',
+            'item_date': getFecha()
         })
 
     ## responseJson = json.dumps(response, indent = 4)

@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework import permissions
 from rest_framework import status
 from rest_framework.views import APIView
+from rest_framework import generics
 
 class ItemCreateApi(generics.CreateAPIView):
     serializer_class = ItemSerializer
@@ -23,6 +24,7 @@ class ItemCreateApi2(APIView):
         if serialized.is_valid():
             serialized.save()
             return Response(serialized.data, status = status.HTTP_201_CREATED)
+        print(serialized._errors)
         return Response(serialized._errors, status = status.HTTP_400_BAD_REQUEST)
 
 class AllItems(generics.ListAPIView):
@@ -30,3 +32,4 @@ class AllItems(generics.ListAPIView):
     model = Item
     permission_classes = [permissions.AllowAny]
     queryset = Item.objects.all()
+

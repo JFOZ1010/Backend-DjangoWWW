@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import json
-from conversion_dolar import dolar_convert
+from conversion_dolar import dolar_convert, getFecha
 
 urls_newegg = {
     'RX500series' : { 'type': 3, 'link': 'https://www.newegg.com/p/pl?d=rx+500+series'},
@@ -51,7 +51,8 @@ def ScrappyEgg(urls):
             "item_price": pesoCOP*auxPrecio,
             'type_id' : urls['type'],
             'item_description': 'details',
-            'user_id': 'auth0|639e3f6e9c43cd6f74e81ba0'
+            'user_id': 'auth0|639e3f6e9c43cd6f74e81ba0',
+            'item_date': getFecha()
 
         })
     ## responseJson = json.dumps(response, indent = 4)
