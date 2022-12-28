@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 from .conversion_dolar import dolar_convert, getFecha
-import json
+## import json
 
 urls_amazon = {
     'RX500series' : { 'type': 3, 'link': 'https://www.amazon.com/s?k=radeon+rx+500+series&__mk_es_US=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=1ZGZT1NJVU8XJ&sprefix=radeon+rx+500+serie%2Caps%2C152&ref=nb_sb_noss_2'},
@@ -19,42 +19,40 @@ response = {
 
 ## pesoCOP = dolar_convert() ## Descomentar en el caso de que se requiera hacer el scrappy muchas veces
 def ScrappyAmzn(urls):
+    response['products'] = []
+    ## print('Buscamos en Amazon:', urls)
     HEADER = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36 Opera/73.0.3856.284',
-        'Accept-Language': 'es-ES,es;q=0.9'
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:94.0) Gecko/20100101 Firefox/94.0',
+        'Accept-Language': 'en-US, en;q=0.5'
     }
     pesoCOP = dolar_convert()
     content = requests.get(urls['link'], headers = HEADER).text
     soup = BeautifulSoup(content, 'html.parser')
     LINK = soup.find_all('a', class_ = 'a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal')
-    ## Ingresamos a cada producto y sacamos su imagen, precio y nombre>
-    for i in LINK:
-        resultClicked = requests.get('https://www.amazon.com'+i['href'], headers = HEADER)
-        resultContent = resultClicked.text
-        resultSoup = BeautifulSoup(resultContent, 'html.parser')
-        IMG = resultSoup.find_all('img', class_ = 'a-dynamic-image')
-        NOMBRE = resultSoup.find_all('span', class_ = 'a-size-large product-title-word-break')
-        PRECIO = resultSoup.find_all('span', class_ = 'a-offscreen')
+    IMG = soup.find_all('img', class_ = 's-image')
+    NOMBRE = soup.find_all('span', class_ = 'a-size-medium a-color-base a-text-normal')
+    PRECIO = soup.find_all('span', class_ = 'a-offscreen')
 
-        # ajuste de la moneda
-        auxPrice = PRECIO[0].text[3:]
+    print('Numero de productos a buscar: ', len(LINK))
+    for i in range(len(LINK)):
+        ## ajuste de moneda
+        auxPrice = PRECIO[i].text[3:]
         auxPrice = auxPrice.replace(',', '')
+        
         try:
-             auxPrice = float(auxPrice)
+            auxPrice = float(auxPrice)
         except ValueError:
             continue
-        
-        response["products"].append({
-            "item_picture": IMG[0]['src'],
-            "item_url": 'https://www.amazon.com'+i['href'],
-            "item_name": NOMBRE[0].text,
-            "item_price": int(pesoCOP*auxPrice),
-            "type_id" : urls['type'],
-            'item_description': 'details',
+        response['products'].append({
+            'item_picture': IMG[i]['src'],
+            'item_url': 'https://www.amazon.com' + LINK[i]['href'],
+            'item_name': NOMBRE[i].text,
+            'type_id': urls['type'],
+            'item_description': 'this is a description',
+            'item_price': int(pesoCOP*auxPrice),
             'user_id': 'auth0|638b682bbc99c67d7152083b',
-            'item_date': getFecha()
+            'item_date': getFecha(),
         })
 
-    # print(json.dumps(response, indent = 4))
-    ## print(responseJson, 'Num productos: ', len(response["products"]))
+    ## print(json.dumps(response, indent = 4))
     return response['products']

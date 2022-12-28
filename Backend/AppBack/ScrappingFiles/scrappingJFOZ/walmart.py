@@ -1,7 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
-import psycopg2
-
+from datetime import date
 
 
 def Walmart():
@@ -54,13 +53,13 @@ def Walmart():
     #print("URLS 2: ", len(urls2))
 
     # PRECIOS
+    #preciosPage1 = soup.find_all('div',{'class': 'flex flex-wrap justify-start items-center lh-title mb2 mb1-m'})
     preciosPage1 = soup.find_all('div', {'class': 'mr1 mr2-xl b black lh-copy f5 f4-l'})
     preciosPage1 = [precio.text for precio in preciosPage1]
     #eliminar el simbolo de pesos
     preciosPage1 = [precio.replace('$', '') for precio in preciosPage1]
     # convertir a entero float los precios a peso colombiano
     preciosPage1 = [int(float(precio)) * dolar for precio in preciosPage1]
-    #print("PRECIOS 1: ", preciosPage1)
 
     preciosPage2 = soup2.find_all('div', {'class': 'mr1 mr2-xl b black lh-copy f5 f4-l'})
     preciosPage2 = [precio.text for precio in preciosPage2]
@@ -68,7 +67,18 @@ def Walmart():
     preciosPage2 = [precio.replace('$', '') for precio in preciosPage2]
     # convertir a entero float los precios a peso colombiano
     preciosPage2 = [int(float(precio)) * dolar for precio in preciosPage2]
-    #print("PRECIOS 2: ", preciosPage2)
+    #print("PRECIOS 2: ", len(preciosPage2))
+
+    #precios de la segunda pagina a la primera, los dos primeros precios
+    #preciosPage1.append(preciosPage2[0])
+    #preciosPage1.append(preciosPage2[1])
+
+    preciosPage1.extend(preciosPage2)
+    #eliminando el ultimo precio, que no es de producto.
+    preciosPage1.pop()
+
+    #print("PRECIOS 1: ", len(preciosPage1)) 
+
 
     # TITULOS
     titulosPage1 = soup.find_all('a', {'class': 'absolute w-100 h-100 z-1 hide-sibling-opacity'})
@@ -94,5 +104,22 @@ def Walmart():
     #print("IMAGES 2: ", len(imagenesPage2))
 
 
-   
-Walmart()
+    #UNIR TODOS LOS DATOS EN UN SOLO ARREGLO
+    productos = [ ]
+
+    for i in range(len(urls)):
+        diccionarioProducto = {
+            'type_id': 4, 
+            'user_id': 'auth0|639e3ee1aacda0152647f763',
+            'item_url': urls[i],
+            'item_name': titulosPage1[i],
+            'item_price': preciosPage1[i],
+            'item_picture': imagenesPage1[i],
+            'item_description': 'Description Generic', 
+            'item_date': date.today().strftime('%Y-%m-%d') 
+        } 
+        productos.append(diccionarioProducto)
+
+    url = 'http://127.0.0.1:6060/api/item/create2'
+    x = requests.post(url, json = productos)
+

@@ -43,7 +43,6 @@ def mercadolibre():
     listaProductosR3 = soupR3.find_all('li', {'class': 'ui-search-layout__item shops__layout-item'})
     listaProductosR5 = soupR5.find_all('li', {'class': 'ui-search-layout__item shops__layout-item'})
     listaProductosR7 = soupR7.find_all('li', {'class': 'ui-search-layout__item shops__layout-item'})
-
     dataR3 = []
     dataR5 = []
     dataR7 = []

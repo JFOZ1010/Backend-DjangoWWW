@@ -2,7 +2,7 @@
 from bs4 import BeautifulSoup
 from django.shortcuts import render
 import requests
-import psycopg2
+from datetime import date
 
 
 def Amazon():
@@ -103,27 +103,6 @@ def Amazon():
     #print("imagenes 2: ", len(imagenesPage2))
 
 
-    #un JSON con los datos item_name que es el titulo, item_price que es el precio, item_url que es el link, item_picture que es la imagen
-    data = { 
-        'item_name': titulosPage1 + titulosPage2,
-        'item_price': preciosPage1 + preciosPage2,
-        'item_url': linksPage1 + linksPage2,
-        'item_picture': imagenesPage1 + imagenesPage2
-    }
-
-    #metodo que recibe el JSON  y lo envía a la vista de item para que se envie a la base de datos
-
-    def send_data(request):
-        data = {
-            'item_name': titulosPage1 + titulosPage2,
-            'item_price': preciosPage1 + preciosPage2,
-            'item_url': linksPage1 + linksPage2,
-            'item_picture': imagenesPage1 + imagenesPage2
-        }
-        #render a la vista ItemCreateApi2
-
-        return render(request, 'ItemCreateApi2', data)
-
     productos = [ ]
 
     for i in range(len(linksPage1)): 
@@ -134,7 +113,8 @@ def Amazon():
             'item_price': preciosPage1[i],
             'item_url': linksPage1[i],
             'item_picture': imagenesPage1[i],
-            'item_description': 'Detalle del producto'
+            'item_description': 'Detalle del producto', 
+            'item_date': date.today().strftime('%Y-%m-%d') 
         }
         productos.append(diccionarioProducto)
 
@@ -143,4 +123,3 @@ def Amazon():
     #print(x.text)
 
 
-Amazon()

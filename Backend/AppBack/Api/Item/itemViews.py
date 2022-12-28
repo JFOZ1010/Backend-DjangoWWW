@@ -12,6 +12,9 @@ from rest_framework import generics
 from ...ScrappingFiles.ScrappingKevin.amazon import amazon as amazonKevin
 from ...ScrappingFiles.ScrappingKevin.newegg import newegg as neweggKevin
 from ...ScrappingFiles.ScrappingKevin.mercadolibre import mercadolibre as mercadolibreKevin
+from ...ScrappingFiles.ScrappingJFOZ.amazon import Amazon as amazonJFOZ
+from ...ScrappingFiles.ScrappingJFOZ.MercadoLibre import mercadoLibre as mercadolibreJFOZ
+from ...ScrappingFiles.ScrappingJFOZ.walmart import Walmart as walmartJFOZ
 
 
 class ItemCreateApi(generics.CreateAPIView):
@@ -43,7 +46,37 @@ class ScrappingAmazon(APIView):
 
     def post(self, request):
         try:
+            print("**Scrapping amazon Kevin**")
             amazonKevin()
+            print("**Scrapping amazon Julián**")
+            #doAmazonGPU()
+            #doAmazonRAM()
+            print("**Scrapping amazon Giron**")
+            #mainScrapAmazon()
+            print("**Scrapping amazon Felipe**")
+            amazonJFOZ()
+
+        except Exception as e:
+            print(str(e))
+            return Response({ 'res' : 400, 'error': str(e)}, status = status.HTTP_400_BAD_REQUEST)
+        else: 
+            return Response({ 'res' : 200}, status = status.HTTP_200_OK)
+        
+class ScrappingMercadolibre(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        try:
+            print("**Scrapping mercadolibre Kevin**")
+            mercadolibreKevin()
+            print("**Scrapping mercadolibre Julián**")
+            #doMercadoLibreGPU()
+            #doMercadoLibreRAM()
+            print("**Scrapping mercadolibre Giron**")
+            #mainScrapMercadolibre()
+            print("**Scrapping mercadolibre Felipe**")
+            mercadolibreJFOZ()
+
 
         except Exception as e:
             print(str(e))
@@ -56,23 +89,19 @@ class ScrappingNewegg(APIView):
 
     def post(self, request):
         try:
+            print("**Scrapping newegg Kevin**")
             neweggKevin()
-
+            print("**Scrapping newegg Julián**")
+            #doNewEggGPU()
+            #doNewEggRAM()
+            print("**Scrapping newegg Giron**")
+            print("**Scrapping newegg Felipe**")
+            walmartJFOZ()
+            
         except Exception as e:
             print(str(e))
             return Response({ 'res' : 400, 'error': str(e)}, status = status.HTTP_400_BAD_REQUEST)
         else: 
             return Response({ 'res' : 200}, status = status.HTTP_200_OK)
 
-class ScrappingMercadolibre(APIView):
-    permission_classes = [permissions.AllowAny]
 
-    def post(self, request):
-        try:
-            mercadolibreKevin()
-
-        except Exception as e:
-            print(str(e))
-            return Response({ 'res' : 400, 'error': str(e)}, status = status.HTTP_400_BAD_REQUEST)
-        else: 
-            return Response({ 'res' : 200}, status = status.HTTP_200_OK)

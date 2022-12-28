@@ -19,6 +19,7 @@ response = {
 
 ## pesoCOP = dolar_convert() ## Descomentar en el caso de que se requiera hacer el scrappy muchas veces
 def ScrappyEgg(urls):
+    response['products'] = []
     HEADER = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36 Opera/73.0.3856.284',
         'Accept-Language': 'es-ES,es;q=0.9'
@@ -27,28 +28,27 @@ def ScrappyEgg(urls):
     content = requests.get(urls['link'], headers = HEADER).text
     soup = BeautifulSoup(content, 'html.parser')
     LINK = soup.find_all('a', class_ = 'item-title')
-    ## Ingresamos a cada producto y sacamos su imagen, precio y nombre
-    LINK = LINK[:1]
-    for i in LINK:
-        resultClicked = requests.get(i['href'], headers = HEADER)
-        resultContent = resultClicked.text
-        resultSoup = BeautifulSoup(resultContent, 'html.parser')
-        IMG = resultSoup.find_all('img', class_ = 'product-view-img-original')
-        NOMBRE = resultSoup.find_all('h1', class_ = 'product-title')
-        PRECIO = resultSoup.find_all('li', class_ = 'price-current')
+    IMG = soup.find_all('a', class_ = 'item-img')
+    NOMBRE = soup.find_all('a', class_ =  'item-title')
+    PRECIO = soup.find_all('li', class_ = 'price-current')
 
+    print('Numero de productos a buscar: ', len(LINK))
+    ## Ingresamos a cada producto y sacamos su imagen, precio y nombre
+    for i in range(len(LINK)):
         ## Ajuste de la moneda
-        auxPrecio = PRECIO[0].text[1:]
+        auxPrecio = PRECIO[i].strong.text + PRECIO[i].sup.text
         auxPrecio = auxPrecio.replace(',', '')
+
         try:
-             auxPrecio = float(auxPrecio)
+            auxPrecio = float(auxPrecio)
         except ValueError:
             continue
 
+
         response["products"].append({
-            "item_picture": IMG[0]['src'],
-            "item_url": i['href'],
-            "item_name": NOMBRE[0].text,
+            "item_picture": IMG[i].img['src'],
+            "item_url": LINK[i]['href'],
+            "item_name": NOMBRE[i].text,
             "item_price": int(pesoCOP*auxPrecio),
             'type_id' : urls['type'],
             'item_description': 'details',

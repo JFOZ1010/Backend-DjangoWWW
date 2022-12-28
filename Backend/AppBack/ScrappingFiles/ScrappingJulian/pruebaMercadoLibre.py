@@ -18,30 +18,25 @@ response = {
 
 
 def ScrappyML(urls):
+    response['products'] = []
     content = requests.get(urls['link']).text
     soup = BeautifulSoup(content, 'html.parser')
     LINK = soup.find_all('a', class_ = "ui-search-item__group__element shops__items-group-details ui-search-link")
-    ## Ingresamos a cada producto y sacamos su imagen, precio, y nombre
-    LINK = LINK[:1]
-    for i in LINK:
-        resultClicked = requests.get(i['href'])
-        resultContent = resultClicked.text
-        resultSoup = BeautifulSoup(resultContent, 'html.parser')
-        IMG = resultSoup.find_all('img', class_ = 'ui-pdp-image ui-pdp-gallery__figure__image')
-        NOMBRE = resultSoup.find_all('h1', class_ = 'ui-pdp-title')
-        PRECIO = resultSoup.find_all('span', class_ = 'andes-money-amount__fraction')
+    IMG = soup.find_all(class_ = 'slick-slide slick-active')
+    NOMBRE = soup.find_all('h2', class_ = 'ui-search-item__title shops__item-title')
+    PRECIO = soup.find_all('span', class_ = 'price-tag-fraction')
 
-        ## Ajuste de la moneda
-        auxPrecio = PRECIO[0].text.replace('.', '')
+    print('Numero de productos a buscar: ', len(LINK))
+    for i in range(len(LINK)):
+        auxPrecio = PRECIO[i].text.replace('.', '')
         auxPrecio = float(auxPrecio)
-
         response["products"].append({
-            "item_picture": IMG[0]['src'],
-            "item_url": i['href'],
-            "item_name": NOMBRE[0].text,
+            "item_picture": IMG[i].img['data-src'],
+            "item_url": LINK[i]['href'],
+            "item_name": NOMBRE[i].text,
             "item_price": int(auxPrecio),
             "type_id" : urls['type'],
-            'item_description': 'details',
+            'item_description': 'this is a description',
             'user_id': 'auth0|639e3ee1aacda0152647f763',
             'item_date': getFecha()
         })

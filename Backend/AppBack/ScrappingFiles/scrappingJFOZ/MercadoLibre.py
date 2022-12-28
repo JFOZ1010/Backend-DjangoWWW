@@ -1,7 +1,7 @@
 #importar librerias beautifulsoup
 from bs4 import BeautifulSoup
 import requests
-import psycopg2
+from datetime import date
 
 def mercadoLibre():
 
@@ -43,13 +43,14 @@ def mercadoLibre():
             'item_price': precios[i],
             'item_url': urls[i],
             'item_picture': imagenes[i],
-            'item_description': 'Detalle del producto'
+            'item_description': 'Detalle del producto', 
+            'item_date': date.today().strftime('%Y-%m-%d') 
         }
         productos.append(diccionarioProducto)
     #print("Productos: ", productos)
     url = 'http://127.0.0.1:6060/api/item/create2'
     x = requests.post(url, json = productos)
-    print(x.text)
+    #print(x.text)
 
 
     # auth0|638b682bbc99c67d7152083b
@@ -65,5 +66,3 @@ def mercadoLibre():
     #port: 5432
     #conexion1 = psycopg2.connect(database='proyect_www', user='juanfelipeoz', password='LBox2vyKMhOjkQ2bwtQMb60HJp8XFnIu', )
 
- 
-mercadoLibre()
