@@ -1,7 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
-from lxml import etree
+from datetime import date
 import json
+import time
 
 ####Scrapping de mercadolibre para intel core i3, i5 e i7:
 
@@ -23,22 +24,26 @@ def ScrapProcessorsML(reference):
   response=[]
   names = soup.find_all('h2', class_='ui-search-item__title shops__item-title')
   urls = soup.find_all('a', class_='ui-search-item__group__element shops__items-group-details ui-search-link')
-  for i in range(0, 5, 1):
+  for i in range(0, 10, 1):
     auxResult = requests.get(urls[i]['href'])
     auxContent = auxResult.text
     auxSoup = BeautifulSoup(auxContent, 'html.parser')
     img = auxSoup.find_all('img', class_='ui-pdp-image ui-pdp-gallery__figure__image')
     price = auxSoup.find_all('span', class_='andes-money-amount ui-pdp-price__part andes-money-amount--cents-superscript andes-money-amount--compact')
+    if(len(price) == 0):
+        # print(price)
+        continue
     realPrice = price[0].text
     realPrice = realPrice.split()
     response.append({
       "item_name" : names[i].text,
       "item_price" : realPrice[0],
       "item_picture" : img[0]['src'],
-      "item_description" : "details",
+      "item_description" : "Armando",
       "item_url" : urls[i]['href'],
       "type_id" : 1,
-      "user_id" : 'auth0|639e3ee1aacda0152647f763'
+      "user_id" : 'auth0|639e3ee1aacda0152647f763',
+      'item_date': date.today().strftime('%Y-%m-%d') 
     })
 
   # mlResponseJson = json.dumps(ProcessorsMLResponse, ensure_ascii= False, indent=4)
@@ -93,12 +98,15 @@ def ScrapProcessorsAMZN(reference):
   # print(wholePrice[0].text+decimalPrice[0].text)
   # img = soup.find_all('img', class_='s-image')
   # print(img[0]['src'])
-  for i in range(0, 6, 1):
+  for i in range(0, 10, 1):
     auxResult = requests.get("https://www.amazon.com"+urls[i]['href'], headers=HEADERS)
     auxContent = auxResult.text
     auxSoup = BeautifulSoup(auxContent, 'html.parser')
     img = auxSoup.find_all('div', class_='imgTagWrapper')
     price = auxSoup.find_all('span', class_='a-offscreen')
+    if(len(price) == 0):
+        # print(price)
+        continue
     # Acomodamos la moneda
     auxPrice = price[0].text[3:]
     try:
@@ -110,10 +118,11 @@ def ScrapProcessorsAMZN(reference):
       "item_name" : names[i].text,
       "item_price" : round(usdValue*auxPrice),
       "item_picture" : img[0].img['src'],
-      "item_description" : "details",
+      "item_description" : "Armando",
       "item_url" : "https://www.amazon.com"+urls[i]['href'],
       "type_id" : 1,
-      "user_id" : 'auth0|638b682bbc99c67d7152083b'
+      "user_id" : 'auth0|638b682bbc99c67d7152083b',
+      'item_date': date.today().strftime('%Y-%m-%d') 
     })
 
   # amznResponseJson = json.dumps(ProcessorsResponse, ensure_ascii= False, indent=4)
@@ -155,19 +164,24 @@ def ScrapProcessorsNGG(reference):
   # print(priceTag[0].sup.text)
   img = soup.find_all('a', class_='item-img')
   # print(img[0].img['src'])
-  for i in range(0, 6, 1):
-    realPrice = float(priceTag[i].strong.text+priceTag[i].sup.text)
+  for i in range(0, 10, 1):
+    try:
+      realPrice = float(priceTag[i].strong.text+priceTag[i].sup.text)
+    except Exception:
+      continue
     response.append({
       "item_name" : names[i].text,
       "item_price" : round(realPrice*usdValue),
       "item_picture" : img[0].img['src'],
-      "item_description" : "details",
+      "item_description" : "Armando",
       "item_url" : urls[i]['href'],
       "type_id" : 1,
-      "user_id" : 'auth0|639e3f6e9c43cd6f74e81ba0'
+      "user_id" : 'auth0|639e3f6e9c43cd6f74e81ba0',
+      'item_date': date.today().strftime('%Y-%m-%d') 
     })
 
   # nggResponseJson = json.dumps(ProcessorsResponse, ensure_ascii= False, indent=4)
+  # print(json.dumps(response, ensure_ascii= False, indent = 4))
   return(response)
 
 # print(ScrapProcessorsNGG(0))
@@ -186,13 +200,13 @@ def ScrapProcessorsNGG(reference):
 # print(ScrapProcessorsNGG(1))
 # print(ScrapProcessorsNGG(2))
 
-url = 'http://127.0.0.1:6060//api/item/create2'
-# requests.post(url, json = ScrapProcessorsML(0))
-# requests.post(url, json = ScrapProcessorsML(1))
-# requests.post(url, json = ScrapProcessorsML(2))
-# requests.post(url, json = ScrapProcessorsAMZN(0))
-# requests.post(url, json = ScrapProcessorsAMZN(1))
-# requests.post(url, json = ScrapProcessorsAMZN(2))
-# requests.post(url, json = ScrapProcessorsNGG(0))
-# requests.post(url, json = ScrapProcessorsNGG(1))
-# requests.post(url, json = ScrapProcessorsNGG(2))
+url = 'http://127.0.0.1:6060/api/item/create2'
+
+def mercadolibreArmando():
+  requests.post(url, json = ScrapProcessorsML(0) + ScrapProcessorsML(1) + ScrapProcessorsML(2))
+
+def amazonArmando():
+  requests.post(url, json = ScrapProcessorsAMZN(0) + ScrapProcessorsAMZN(1) + ScrapProcessorsAMZN(2) )
+
+def neweggArmando():
+  requests.post(url, json = ScrapProcessorsNGG(0) + ScrapProcessorsNGG(1) + ScrapProcessorsNGG(2))

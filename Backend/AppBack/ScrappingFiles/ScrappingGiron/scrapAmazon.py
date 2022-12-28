@@ -4,8 +4,6 @@ from lxml import etree
 import json
 from datetime import date
 
-#SUBMIT
-URL = 'http://127.0.0.1:6060/api/item/create2'
 
 def scrapAmazon(url,typeId):
     print(url)
@@ -44,10 +42,13 @@ def scrapAmazon(url,typeId):
     print(dolar)
 
     #FIN DEL BLOQUE DE CONVERSION DE DOLAR A PESOS#
+    print(len(urls))
+    for i in range(0, 10, 1):
+        try:
+            innerResult = requests.get('https://www.amazon.com'+urls[i]['href'], headers=HEADER)
+        except Exception:
+            continue
 
-    for i in range(0, len(urls), 1):
-        innerResult = requests.get(
-            'https://www.amazon.com'+urls[i]['href'], headers=HEADER)
         innerContent = innerResult.text
         innerSoup = BeautifulSoup(innerContent, 'html.parser')
         price = innerSoup.find_all('span', class_='a-offscreen')
@@ -69,7 +70,7 @@ def scrapAmazon(url,typeId):
             "item_price": int(auxPrice * dolar),
             "item_url": 'https://www.amazon.com'+urls[i]['href'],
             "item_picture": img[0]['src'],
-            "item_description" : "generic description",
+            "item_description" : "Giron",
             "user_id":"auth0|638b682bbc99c67d7152083b",
             "type_id":typeId,
             'item_date': date.today().strftime('%Y-%m-%d') 
@@ -81,9 +82,8 @@ def scrapAmazon(url,typeId):
 
     #print(mlResponseJson)
 
-
-def mainScrapAmazon():
-#MEMORIAS RAM CRUCIAL
+def scrapAmazonGiron():
+    #MEMORIAS RAM CRUCIAL
     crucial = scrapAmazon('https://www.amazon.com/s?k=memoria+ram+ddr4+8gb&i=electronics&rh=n%3A172500%2Cp_89%3ACrucial%2Cp_n_feature_five_browse-bin%3A677427011&dc&language=es&ds=v1%3AsyEVmcL0wsjBkvhpPop%2Bbf3bwXrxlDvP4%2BuixOIAi5M&crid=3U2SXGALCNWVS&qid=1671655664&rnid=673240011&sprefix=memoria+ram+%2Caps%2C443&ref=sr_nr_p_n_feature_five_browse-bin_6',2)
 
     #MEMORIAS RAM HYPERX
@@ -98,6 +98,8 @@ def mainScrapAmazon():
 
 
 
+    #SUBMIT
+    URL = 'http://127.0.0.1:6060/api/item/create2'
 
     submit = requests.post(URL,json = hyperx)
     print("HyperX enviado")
@@ -110,5 +112,3 @@ def mainScrapAmazon():
 
     submit = requests.post(URL,json = rtx30)
     print("RTX30 enviado")
-
-

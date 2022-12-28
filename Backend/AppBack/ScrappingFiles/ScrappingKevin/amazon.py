@@ -15,7 +15,7 @@ def parseInfoAmazon(producto, type_id, user_id, dollarToday):
             "item_name" : unidecode(" ".join(nombre.text.split())),
             "item_price" : round(int(precio.text.replace('.', '')) * dollarToday) ,
             "item_picture" : str(imagen['src']),
-            "item_description" : "details",
+            "item_description" : "Kevin",
             "item_url" : str('https://www.amazon.com' + enlace['href']),
             "type_id" : type_id,
             "user_id" : user_id,
@@ -90,6 +90,6 @@ def amazon():
 
     backurl = 'http://localhost:6060/api/item/create2'
 
-    dataFull = dataR3 + dataR5 + dataR7
+    dataFull = dataR3[:10] + dataR5[:10] + dataR7[:10]
     #dataFull = dataR3[:1]
     res = requests.post(backurl, json = dataFull)

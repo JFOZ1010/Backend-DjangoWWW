@@ -13,7 +13,7 @@ def parseInfoMercadolibre(producto, type_id, user_id):
         "item_name" : " ".join(nombre.text.split()),
         "item_price" : int(precio.text.replace('.', '')),
         "item_picture" : str(imagen.img['data-src']),
-        "item_description" : "details",
+        "item_description" : "Kevin",
         "item_url" : str(enlace['href']),
         "type_id" : type_id,
         "user_id" : user_id,

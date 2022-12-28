@@ -12,9 +12,10 @@ from rest_framework import generics
 from ...ScrappingFiles.ScrappingKevin.amazon import amazon as amazonKevin
 from ...ScrappingFiles.ScrappingKevin.newegg import newegg as neweggKevin
 from ...ScrappingFiles.ScrappingKevin.mercadolibre import mercadolibre as mercadolibreKevin
-from ...ScrappingFiles.ScrappingJFOZ.amazon import Amazon as amazonJFOZ
-from ...ScrappingFiles.ScrappingJFOZ.MercadoLibre import mercadoLibre as mercadolibreJFOZ
-from ...ScrappingFiles.ScrappingJFOZ.walmart import Walmart as walmartJFOZ
+from ...ScrappingFiles.scriptsScrappingArmando.script import ( amazonArmando, mercadolibreArmando, neweggArmando )
+from ...ScrappingFiles.ScrappingGiron.scrapAmazon import scrapAmazonGiron
+from ...ScrappingFiles.ScrappingGiron.scrapMercadoLibre import scrapMLGiron
+from ...ScrappingFiles.ScrappingGiron.scrapNewegg import scrapNeweggGiron
 
 
 class ItemCreateApi(generics.CreateAPIView):
@@ -32,7 +33,7 @@ class ItemCreateApi2(APIView):
         if serialized.is_valid():
             serialized.save()
             return Response(serialized.data, status = status.HTTP_201_CREATED)
-        print(serialized._errors)
+        print(serialized.errors)
         return Response(serialized.errors, status = status.HTTP_400_BAD_REQUEST)
 
 class AllItems(generics.ListAPIView):
@@ -52,9 +53,11 @@ class ScrappingAmazon(APIView):
             #doAmazonGPU()
             #doAmazonRAM()
             print("**Scrapping amazon Giron**")
-            #mainScrapAmazon()
+            scrapAmazonGiron()
             print("**Scrapping amazon Felipe**")
-            amazonJFOZ()
+            #amazonJFOZ()
+            print("**Scrapping amazon Armando**")
+            amazonArmando()
 
         except Exception as e:
             print(str(e))
@@ -73,9 +76,11 @@ class ScrappingMercadolibre(APIView):
             #doMercadoLibreGPU()
             #doMercadoLibreRAM()
             print("**Scrapping mercadolibre Giron**")
-            #mainScrapMercadolibre()
+            scrapMLGiron()
             print("**Scrapping mercadolibre Felipe**")
-            mercadolibreJFOZ()
+            #mercadolibreJFOZ()
+            print("**Scrapping mercadolibre Armando**")
+            mercadolibreArmando()
 
 
         except Exception as e:
@@ -95,8 +100,11 @@ class ScrappingNewegg(APIView):
             #doNewEggGPU()
             #doNewEggRAM()
             print("**Scrapping newegg Giron**")
+            scrapNeweggGiron()
             print("**Scrapping newegg Felipe**")
-            walmartJFOZ()
+            #walmartJFOZ()
+            print("**Scrapping newegg Armando**")
+            neweggArmando()
             
         except Exception as e:
             print(str(e))

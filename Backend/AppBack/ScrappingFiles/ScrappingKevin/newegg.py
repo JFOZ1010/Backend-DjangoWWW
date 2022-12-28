@@ -14,7 +14,7 @@ def parseInfowNewegg(producto, type_id, user_id, dollarToday):
             "item_name" : " ".join(nombre.text.split()),
             "item_price" : round(float(precio.strong.text.replace(',','') + precio.sup.text) * dollarToday) ,
             "item_picture" : str(imagen.img['src']),
-            "item_description" : "details",
+            "item_description" : "Kevin",
             "item_url" : str(enlace['href']),
             "type_id" : type_id,
             "user_id" : user_id,
@@ -73,7 +73,7 @@ def newegg():
 
     backurl = 'http://localhost:6060/api/item/create2'
 
-    dataFull = dataR3 + dataR5and7
+    dataFull = dataR3[:10] + dataR5and7[:10]
     #dataFull = dataFull[:1]
     res = requests.post(backurl, json = dataFull)
         
