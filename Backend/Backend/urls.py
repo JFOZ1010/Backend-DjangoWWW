@@ -36,6 +36,10 @@ from AppBack.Api.Supplier.supplierViews import (
 from AppBack.Api.Item.itemViews import (
                                 ItemCreateApi,
                                 ItemCreateApi2,
+                                AllItems,
+                                ScrappingAmazon,
+                                ScrappingNewegg,
+                                ScrappingMercadolibre,
                                 )
 
 urlpatterns = [
@@ -63,5 +67,11 @@ urlpatterns = [
     path('api/auth/retrieve', AccountAuthRetrieveApi.as_view()),
     path('api/item/create', ItemCreateApi.as_view()),
     path('api/item/create2', ItemCreateApi2.as_view()),
+    path('api/item/allItems', AllItems.as_view()),
+    path('api/item/scrapping/amazon', ScrappingAmazon.as_view()),
+    path('api/item/scrapping/newegg', ScrappingNewegg.as_view()),
+    path('api/item/scrapping/mercadolibre', ScrappingMercadolibre.as_view()),
 ]
+
+
 
