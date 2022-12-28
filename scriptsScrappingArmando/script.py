@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-import json
+from datetime import date
 
 ####Scrapping de mercadolibre para intel core i3, i5 e i7:
 
@@ -37,7 +37,8 @@ def ScrapProcessorsML(reference):
       "item_description" : "details",
       "item_url" : urls[i]['href'],
       "type_id" : 1,
-      "user_id" : 'auth0|639e3ee1aacda0152647f763'
+      "user_id" : 'auth0|639e3ee1aacda0152647f763',
+      'item_date': date.today().strftime('%Y-%m-%d') 
     })
 
   # mlResponseJson = json.dumps(ProcessorsMLResponse, ensure_ascii= False, indent=4)
@@ -112,7 +113,8 @@ def ScrapProcessorsAMZN(reference):
       "item_description" : "details",
       "item_url" : "https://www.amazon.com"+urls[i]['href'],
       "type_id" : 1,
-      "user_id" : 'auth0|638b682bbc99c67d7152083b'
+      "user_id" : 'auth0|638b682bbc99c67d7152083b',
+      'item_date': date.today().strftime('%Y-%m-%d') 
     })
 
   # amznResponseJson = json.dumps(ProcessorsResponse, ensure_ascii= False, indent=4)
@@ -163,7 +165,8 @@ def ScrapProcessorsNGG(reference):
       "item_description" : "details",
       "item_url" : urls[i]['href'],
       "type_id" : 1,
-      "user_id" : 'auth0|639e3f6e9c43cd6f74e81ba0'
+      "user_id" : 'auth0|639e3f6e9c43cd6f74e81ba0',
+      'item_date': date.today().strftime('%Y-%m-%d') 
     })
 
   # nggResponseJson = json.dumps(ProcessorsResponse, ensure_ascii= False, indent=4)
@@ -186,7 +189,7 @@ def ScrapProcessorsNGG(reference):
 # print(ScrapProcessorsNGG(2))
 
 url = 'http://127.0.0.1:6060//api/item/create2'
-# requests.post(url, json = ScrapProcessorsML(0))
+requests.post(url, json = ScrapProcessorsML(0))
 # requests.post(url, json = ScrapProcessorsML(1))
 # requests.post(url, json = ScrapProcessorsML(2))
 # requests.post(url, json = ScrapProcessorsAMZN(0))
