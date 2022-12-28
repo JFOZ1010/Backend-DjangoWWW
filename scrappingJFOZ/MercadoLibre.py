@@ -44,7 +44,7 @@ def mercadoLibre():
             'item_url': urls[i],
             'item_picture': imagenes[i],
             'item_description': 'Detalle del producto', 
-            'item_date': date.today().strftime('%Y-%m-%')
+            'item_date': date.today().strftime('%Y-%m-%d') 
         }
         productos.append(diccionarioProducto)
     #print("Productos: ", productos)
