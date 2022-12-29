@@ -3,6 +3,9 @@ from bs4 import BeautifulSoup
 import requests
 from datetime import date
 
+#titulos añaden precios que no deberian ser. 
+# y los precios de los items deben tomar solo el precio no el del descuento. 
+
 def mercadoLibre():
 
     url = 'https://listado.mercadolibre.com.co/disco-ssd-500gb'
@@ -22,17 +25,39 @@ def mercadoLibre():
     urls = [url.find('a', {'class': 'ui-search-link'}).get('href') for url in urls]
     #print(urls)
 
-    #sacar el precio de todos los discos que tienen un atributo price-tag-fraction de la etiqueta span que están dentro de la etiqueta, span que tiene un atributo price-tag-amount, que está dentro de la etiqueta li que tiene un atributo ui-search-item
-    precios = soup.find_all('li', {'class': 'ui-search-layout__item shops__layout-item'})
-    precios = [precio.find('span', {'class': 'price-tag-amount'}).find('span', {'class': 'price-tag-fraction'}).text for precio in precios]
-    precios = [int(precio.replace('.','')) for precio in precios] #convierto los precios a flotante. 
-    #print(precios)
+    #sacar el precio de todos los discos que tienen un atributo price-tag-fraction de la etiqueta span que están dentro de la etiqueta, span que tiene un atributo price-tag-amount, que está dentro de la etiqueta li que tiene un atributo ui-search-item, y los
+    # precios que tengan descuento deben tomar solo el precio sin el descuento.
+
+    #precios = soup.find_all('div', {'class': 'ui-search-price__second-line shops__price-second-line'})
+    precios = soup.find_all('div', {'class': 'ui-search-price ui-search-price--size-medium shops__price'})
+    precios = [precio.find('span', {'class': 'price-tag-fraction'}).text for precio in precios]
+    
+    
+    #precios = [precio.find('span', {'class': 'price-tag ui-search-price__part shops__price-part'}) for precio in precios] 
+    #tomar solo los precios que no tienen descuento
+    #precios = [precio for precio in precios if precio.find('span') == -1]
+    #eliminar los puntos de los precios
+    #precios = [int(precio.replace('.','')) for precio in precios]
+    #convertir los precios a flotante
+    #convertir los precios a flotante
+    #precios = [int(precio.replace('.','')) for precio in precios] #convierto los precios a flotante. 
+
+    #precios = soup.find_all('div', {'class': 'ui-search-price__second-line shops__price-second-line'})
+
+    print(f"precios {precios}")
+    
+    #precios = soup.find_all('span', {'class': 'price-tag ui-search-price__part shops__price-part'})
+    #precios = soup.find('span', {'class': 'price-tag-text-sr-only'})
+    #precios = [precio.text.replace('Pesos','') for precio in precios]
+    #precios = [int(precio.text.replace('.','')) for precio in precios]
+    #print(f"precios {precios}")
 
     # obtener los enlaces de las imagenes de los discos ssd que están dentro de una etiqueta li con atributo ui-search-layout__item shops__layout-item
     imagenes = soup.find_all('li', {'class': 'ui-search-layout__item shops__layout-item'}) 
     imagenes = [imagen.find('img', {'class': 'ui-search-result-image__element'}).get('data-src') for imagen in imagenes]
     #print(imagenes)
 
+    """
     productos = [ ]
 
     for i in range(len(urls)): 
@@ -51,7 +76,7 @@ def mercadoLibre():
     url = 'http://127.0.0.1:6060/api/item/create2'
     x = requests.post(url, json = productos)
     print(x.text)
-
+    """
 
     # auth0|638b682bbc99c67d7152083b
     #organizar los datos en un dataframe
