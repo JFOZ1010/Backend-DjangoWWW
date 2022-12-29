@@ -16,6 +16,7 @@ from ...ScrappingFiles.scriptsScrappingArmando.script import ( amazonArmando, me
 from ...ScrappingFiles.ScrappingGiron.scrapAmazon import scrapAmazonGiron
 from ...ScrappingFiles.ScrappingGiron.scrapMercadoLibre import scrapMLGiron
 from ...ScrappingFiles.ScrappingGiron.scrapNewegg import scrapNeweggGiron
+from ...ScrappingFiles.ScrappingJulian.submit_response import (doAmazonGPU, doAmazonRAM, doMercadoLibreGPU, doMercadoLibreRAM, doNewEggGPU, doNewEggRAM)
 
 
 class ItemCreateApi(generics.CreateAPIView):
@@ -50,8 +51,8 @@ class ScrappingAmazon(APIView):
             print("**Scrapping amazon Kevin**")
             amazonKevin()
             print("**Scrapping amazon Julián**")
-            #doAmazonGPU()
-            #doAmazonRAM()
+            doAmazonGPU()
+            doAmazonRAM()
             print("**Scrapping amazon Giron**")
             scrapAmazonGiron()
             print("**Scrapping amazon Felipe**")
@@ -73,8 +74,8 @@ class ScrappingMercadolibre(APIView):
             print("**Scrapping mercadolibre Kevin**")
             mercadolibreKevin()
             print("**Scrapping mercadolibre Julián**")
-            #doMercadoLibreGPU()
-            #doMercadoLibreRAM()
+            doMercadoLibreGPU()
+            doMercadoLibreRAM()
             print("**Scrapping mercadolibre Giron**")
             scrapMLGiron()
             print("**Scrapping mercadolibre Felipe**")
@@ -97,8 +98,8 @@ class ScrappingNewegg(APIView):
             print("**Scrapping newegg Kevin**")
             neweggKevin()
             print("**Scrapping newegg Julián**")
-            #doNewEggGPU()
-            #doNewEggRAM()
+            doNewEggGPU()
+            doNewEggRAM()
             print("**Scrapping newegg Giron**")
             scrapNeweggGiron()
             print("**Scrapping newegg Felipe**")
