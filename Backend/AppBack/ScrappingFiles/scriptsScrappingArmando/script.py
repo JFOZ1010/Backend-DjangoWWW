@@ -202,6 +202,8 @@ def ScrapProcessorsNGG(reference):
 
 url = 'http://127.0.0.1:6060/api/item/create2'
 
+# requests.post(url, json = ScrapProcessorsML(0))
+
 def mercadolibreArmando():
   requests.post(url, json = ScrapProcessorsML(0) + ScrapProcessorsML(1) + ScrapProcessorsML(2))
 

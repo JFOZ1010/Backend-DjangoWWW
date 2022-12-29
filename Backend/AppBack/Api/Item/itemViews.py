@@ -31,7 +31,24 @@ class ItemCreateApi2(APIView):
     def post(self, request):
         serialized = self.serializer_class(data = request.data, many = True)
         if serialized.is_valid():
-            serialized.save()
+            #print(serialized)
+            for i in range(0, len(serialized.validated_data), 1):
+                if(len(Item.objects.filter(item_name=serialized.validated_data[i]['item_name']))!=0):
+                    print("Ya estaba")
+                    #print(Item.objects.filter(item_name=serialized.validated_data[0]['item_name'])[0].item_name)
+                else:
+                    auxItem = Item(item_name=serialized.validated_data[i]['item_name'],
+                    item_price=serialized.validated_data[i]['item_price'],
+                    item_picture=serialized.validated_data[i]['item_picture'],
+                    item_description=serialized.validated_data[i]['item_description'],
+                    item_url=serialized.validated_data[i]['item_url'],
+                    item_date=serialized.validated_data[i]['item_date'],
+                    type_id=serialized.validated_data[i]['type_id'],
+                    user_id=serialized.validated_data[i]['user_id'])
+                    auxItem.save()
+            #print(len(serialized.validated_data))
+            #print(serialized.validated_data[0])
+            #serialized.save()
             return Response(serialized.data, status = status.HTTP_201_CREATED)
         print(serialized.errors)
         return Response(serialized.errors, status = status.HTTP_400_BAD_REQUEST)
