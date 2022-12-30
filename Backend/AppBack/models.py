@@ -33,6 +33,7 @@ class History(models.Model):
     history_id = models.AutoField(primary_key=True)
     item_date = models.DateField()
     item_price = models.IntegerField()
+    item_clic = models.IntegerField(default = 0)
 
 class Type(models.Model):
     type_id = models.AutoField(primary_key=True)
@@ -48,6 +49,7 @@ class Item(models.Model):
     item_description = models.CharField(max_length=1000)
     item_url = models.CharField(max_length=1000)
     item_date = models.DateField()
+    item_clic = models.IntegerField(default = 0)
 
 class History_item(models.Model):
     history_id = models.ForeignKey(History, on_delete=models.CASCADE)

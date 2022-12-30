@@ -1,6 +1,7 @@
 from rest_framework import generics
 from .serializer import (
-    ItemSerializer
+    ItemSerializer,
+    ClicSerializer
 )
 from AppBack.models import Item, History, History_item
 from rest_framework.response import Response
@@ -27,6 +28,27 @@ class ItemCreateApi(generics.CreateAPIView):
     model = Item
     permission_classes = [permissions.AllowAny]
 
+class ItemUpdateClicApi(generics.UpdateAPIView):
+    serializer_class = ClicSerializer
+    model = Item
+    permission_classes = [permissions.AllowAny]
+
+    def get_queryset(self, pk):
+        return self.get_serializer().Meta.model.objects.filter(item_id = pk).first()
+
+    def put(self, request, pk = None):
+        if self.get_queryset(pk):
+            #ASI SE EDITA INFO O SE VE ANTES DE METERSE A LA BD
+            #request.data['descripcion'] = "Se van a morir"
+            #print(request.data)
+            data = Item.objects.get(item_id = pk)
+            item_serializer = self.serializer_class(self.get_queryset(pk), data = {'item_clic': data.item_clic + 1})
+            if item_serializer.is_valid():
+                item_serializer.save()
+                return Response(item_serializer.data, status = status.HTTP_200_OK)
+            else:
+                return Response( item_serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+
 class ItemCreateApi2(APIView):
     serializer_class = ItemSerializer
     model = Item
@@ -48,7 +70,7 @@ class ItemCreateApi2(APIView):
                         #auxItem es el registro que ya se encontraba en la base de datos
                         auxItem=Item.objects.get(item_name=serialized.validated_data[i]['item_name'], user_id=serialized.validated_data[i]['user_id'])
                         #Si las fechas son diferentes, se hace el guardado del precio y la fecha en el historial
-                        auxHistory=History(item_date=auxItem.item_date, item_price=auxItem.item_price)
+                        auxHistory=History(item_date=auxItem.item_date, item_price=auxItem.item_price, item_clic = auxItem.item_clic)
                         auxHistory.save()
                         #Y se actualiza el registro que ya estaba 
                         auxItem.item_price=serialized.validated_data[i]['item_price']
@@ -57,6 +79,7 @@ class ItemCreateApi2(APIView):
                         auxItem.item_url=serialized.validated_data[i]['item_url']
                         auxItem.item_date=serialized.validated_data[i]['item_date']
                         auxItem.type_id=serialized.validated_data[i]['type_id']
+                        auxItem.item_clic=serialized.validated_data[i]['item_clic']
                         auxItem.save()
                         #Una vez se ha guardado el historial y se ha actualizado el objeto, se ligan ambos ids en la tabla auxiliar
                         auxHistoryItem=History_item(history_id=auxHistory, item_id=auxItem)
@@ -70,7 +93,8 @@ class ItemCreateApi2(APIView):
                                     item_url=serialized.validated_data[i]['item_url'],
                                     item_date=serialized.validated_data[i]['item_date'],
                                     type_id=serialized.validated_data[i]['type_id'],
-                                    user_id=serialized.validated_data[i]['user_id'])
+                                    user_id=serialized.validated_data[i]['user_id'],
+                                    item_clic=0)
                     auxItem.save()
             #print(len(serialized.validated_data))
             #print(serialized.validated_data[0])
