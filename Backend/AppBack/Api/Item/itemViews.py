@@ -42,8 +42,8 @@ class ItemCreateApi2(APIView):
                 if(len(Item.objects.filter(item_name=serialized.validated_data[i]['item_name'], user_id=serialized.validated_data[i]['user_id']))!=0):
                     #print("Ya estaba")
                     #Si ya estaba, se verifica que las fechas sean diferentes 
-                    #if(Item.objects.get(item_name=serialized.validated_data[i]['item_name'], user_id=serialized.validated_data[i]['user_id']).item_date!=serialized.validated_data[i]['item_date']):
-                    if(True):
+                    if(Item.objects.get(item_name=serialized.validated_data[i]['item_name'], user_id=serialized.validated_data[i]['user_id']).item_date!=serialized.validated_data[i]['item_date']):
+                    #if(True):
                         #print("La fecha es diferente")
                         #auxItem es el registro que ya se encontraba en la base de datos
                         auxItem=Item.objects.get(item_name=serialized.validated_data[i]['item_name'], user_id=serialized.validated_data[i]['user_id'])
