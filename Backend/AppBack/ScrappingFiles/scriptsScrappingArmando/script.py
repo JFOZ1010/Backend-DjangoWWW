@@ -1,8 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 from datetime import date
-import json
-import time
 
 ####Scrapping de mercadolibre para intel core i3, i5 e i7:
 
@@ -46,12 +44,7 @@ def ScrapProcessorsML(reference):
       'item_date': date.today().strftime('%Y-%m-%d') 
     })
 
-  # mlResponseJson = json.dumps(ProcessorsMLResponse, ensure_ascii= False, indent=4)
   return(response)
-
-# print(ScrapProcessorsML(0))
-# print(ScrapProcessorsML(1))
-# print(ScrapProcessorsML(2))
 
 #Convertir dólares a pesos colombianos
 def usdToCOP():
@@ -128,10 +121,6 @@ def ScrapProcessorsAMZN(reference):
   # amznResponseJson = json.dumps(ProcessorsResponse, ensure_ascii= False, indent=4)
   return(response)
 
-# print(ScrapProcessorsAMZN(0))
-# print(ScrapProcessorsAMZN(1))
-# print(ScrapProcessorsAMZN(2))
-
 ####Scrapping de NeweGG para intel core i3, i5 e i7:
 ##Método que escarba los procesadores intel desde NeweGG, recibe un entero donde 0=core i3, 1=core i5 y 2=core i7
 def ScrapProcessorsNGG(reference):
@@ -180,25 +169,7 @@ def ScrapProcessorsNGG(reference):
       'item_date': date.today().strftime('%Y-%m-%d') 
     })
 
-  # nggResponseJson = json.dumps(ProcessorsResponse, ensure_ascii= False, indent=4)
-  # print(json.dumps(response, ensure_ascii= False, indent = 4))
   return(response)
-
-# print(ScrapProcessorsNGG(0))
-# print(ScrapProcessorsNGG(1))
-# print(ScrapProcessorsNGG(2))
-
-##Ejemplo de lo que sería un Scrapping completo de procesadores para un total de 51 productos:
-
-# print(ScrapProcessorsML(0))
-# print(ScrapProcessorsML(1))
-# print(ScrapProcessorsML(2))
-# print(ScrapProcessorsAMZN(0))
-# print(ScrapProcessorsAMZN(1))
-# print(ScrapProcessorsAMZN(2))
-# print(ScrapProcessorsNGG(0))
-# print(ScrapProcessorsNGG(1))
-# print(ScrapProcessorsNGG(2))
 
 url = 'http://127.0.0.1:6060/api/item/create2'
 
