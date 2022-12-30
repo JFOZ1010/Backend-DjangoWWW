@@ -6,7 +6,7 @@ from datetime import date
 
 
 def scrapAmazon(url,typeId):
-    print(url)
+    #print(url)
     HEADER = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36 Opera/73.0.3856.284',
         'Accept-Language': 'es-ES,es;q=0.9'

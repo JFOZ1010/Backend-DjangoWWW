@@ -54,5 +54,5 @@ def ScrappyML(urls):
 
 
     responseJson = json.dumps(response, indent = 4)
-    print(responseJson, 'Num productos: ', len(response["products"]))
+    #print(responseJson, 'Num productos: ', len(response["products"]))
     return response['products']

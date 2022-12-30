@@ -57,5 +57,5 @@ def ScrappyEgg(urls):
         })
 
     responseJson = json.dumps(response, indent = 4)
-    print(responseJson, 'Num Productos: ', len(response["products"]))
+    #print(responseJson, 'Num Productos: ', len(response["products"]))
     return response['products']

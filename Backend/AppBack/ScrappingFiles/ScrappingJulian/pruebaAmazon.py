@@ -64,5 +64,5 @@ def ScrappyAmzn(urls):
 
         })
 
-    print(json.dumps(response, indent = 4))
+    #print(json.dumps(response, indent = 4))
     return response['products']
