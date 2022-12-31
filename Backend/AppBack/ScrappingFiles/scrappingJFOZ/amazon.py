@@ -58,25 +58,16 @@ def Amazon():
     preciosPage1 = [int(float(precio.replace('.',''))) * dolar for precio in preciosPage1] #convierto los precios a flotante. 
     #preciosPage1 = [int(float(precio)) * dolar for precio in preciosPage1]
 
-    
-    #preciosPage1 = [precio for precio in preciosPage1 if precio != 0]
-
-    print("precios LONG 1: ", preciosPage1)
-
-
     preciosPage2 = soup2.find_all('span', {'class': 'a-price-whole'})
     preciosPage2 = [precio.text + " " for precio in preciosPage2]
     preciosPage2 = [int(float(precio)) * dolar for precio in preciosPage2]
-    #añadir un precio más para que el dataframe tenga la misma cantidad de filas
 
-    #si hay precios que estén vacios, se eliminan junto con sus links y titulos, e imagen
-    #preciosPage2 = [precio for precio in preciosPage2 if precio != 0]
+
 
     preciosPage2.append(156000)
     preciosPage2.append(210000)
     preciosPage2.append(132456)
-    #print("precios 2: ", preciosPage2)
-    #print("precios LONG 2: ", len(preciosPage2))
+  
 
     print("------------------------- LINKS -----------------------------")
     # LINKS
@@ -113,10 +104,12 @@ def Amazon():
             'item_price': preciosPage1[i],
             'item_url': linksPage1[i],
             'item_picture': imagenesPage1[i],
-            'item_description': 'Detalle del producto', 
+            'item_description': 'Felipe', 
             'item_date': date.today().strftime('%Y-%m-%d') 
         }
         productos.append(diccionarioProducto)
 
     url = 'http://127.0.0.1:6060/api/item/create2'
     x = requests.post(url, json = productos)
+
+Amazon()

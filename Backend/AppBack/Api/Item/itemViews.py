@@ -124,7 +124,7 @@ class ScrappingAmazon(APIView):
             print("**Scrapping amazon Giron**")
             scrapAmazonGiron()
             print("**Scrapping amazon Felipe**")
-            #amazonJFOZ()
+            amazonJFOZ()
             print("**Scrapping amazon Armando**")
             amazonArmando()
 
@@ -147,7 +147,7 @@ class ScrappingMercadolibre(APIView):
             print("**Scrapping mercadolibre Giron**")
             scrapMLGiron()
             print("**Scrapping mercadolibre Felipe**")
-            #mercadolibreJFOZ()
+            mercadolibreJFOZ()
             print("**Scrapping mercadolibre Armando**")
             mercadolibreArmando()
 
@@ -171,7 +171,7 @@ class ScrappingNewegg(APIView):
             print("**Scrapping newegg Giron**")
             scrapNeweggGiron()
             print("**Scrapping newegg Felipe**")
-            #walmartJFOZ()
+            walmartJFOZ()
             print("**Scrapping newegg Armando**")
             neweggArmando()
             

@@ -115,7 +115,7 @@ def Walmart():
             'item_name': titulosPage1[i],
             'item_price': preciosPage1[i],
             'item_picture': imagenesPage1[i],
-            'item_description': 'Description Generic', 
+            'item_description': 'Felipe', 
             'item_date': date.today().strftime('%Y-%m-%d') 
         } 
         productos.append(diccionarioProducto)
@@ -123,3 +123,4 @@ def Walmart():
     url = 'http://127.0.0.1:6060/api/item/create2'
     x = requests.post(url, json = productos)
 
+Walmart()
