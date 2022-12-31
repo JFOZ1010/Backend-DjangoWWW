@@ -43,7 +43,6 @@ def mercadoLibre():
     imagenes = soup.find_all('li', {'class': 'ui-search-layout__item shops__layout-item'}) 
     imagenes = [imagen.find('img', {'class': 'ui-search-result-image__element'}).get('data-src') for imagen in imagenes]
     #print(imagenes)
-    """
     productos = [ ]
 
     for i in range(len(urls)): 
@@ -61,8 +60,7 @@ def mercadoLibre():
     #print("Productos: ", productos)
     url = 'http://127.0.0.1:6060/api/item/create2'
     x = requests.post(url, json = productos)
-    print(x.text)
-    """
+    #print(x.text)
 
     # auth0|638b682bbc99c67d7152083b
     #organizar los datos en un dataframe
@@ -76,5 +74,3 @@ def mercadoLibre():
     #host: dpg-cdnrnmha6gdooi7cjf50-a.oregon-postgres.render.com
     #port: 5432
     #conexion1 = psycopg2.connect(database='proyect_www', user='juanfelipeoz', password='LBox2vyKMhOjkQ2bwtQMb60HJp8XFnIu', )
-
-mercadoLibre()

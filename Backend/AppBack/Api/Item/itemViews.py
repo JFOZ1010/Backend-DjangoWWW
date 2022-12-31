@@ -79,7 +79,7 @@ class ItemCreateApi2(APIView):
                         auxItem.item_url=serialized.validated_data[i]['item_url']
                         auxItem.item_date=serialized.validated_data[i]['item_date']
                         auxItem.type_id=serialized.validated_data[i]['type_id']
-                        auxItem.item_clic=serialized.validated_data[i]['item_clic']
+                        auxItem.item_clic=auxItem.item_clic
                         auxItem.save()
                         #Una vez se ha guardado el historial y se ha actualizado el objeto, se ligan ambos ids en la tabla auxiliar
                         auxHistoryItem=History_item(history_id=auxHistory, item_id=auxItem)

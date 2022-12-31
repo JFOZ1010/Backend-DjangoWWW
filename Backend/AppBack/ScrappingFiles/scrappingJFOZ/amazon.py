@@ -111,5 +111,3 @@ def Amazon():
 
     url = 'http://127.0.0.1:6060/api/item/create2'
     x = requests.post(url, json = productos)
-
-Amazon()
