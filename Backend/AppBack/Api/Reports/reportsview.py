@@ -9,15 +9,15 @@ from rest_framework.views import APIView
 from rest_framework import generics
 
 
-class ItemByCatApi(generics.ListAPIView):
+class ItemByCatApi(APIView):
     serializer_class = ItemSerializer
     model = Item
     permission_classes = [permissions.AllowAny]
 
     def get_queryset(self, type):
-        return self.get_serializer().Meta.model.objects.filter(type_id = type).order_by('-item_clic')[:5]
+        return self.serializer_class.Meta.model.objects.filter(type_id = type).order_by('-item_clic')[:5]
 
-    def get(self, request):
+    def post(self, request):
         rows = self.get_queryset(request.data['type_id'])
 
         if rows: 
