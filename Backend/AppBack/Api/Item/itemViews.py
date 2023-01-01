@@ -1,4 +1,3 @@
-from rest_framework import generics
 from .serializer import (
     ItemSerializer,
     ClicSerializer
