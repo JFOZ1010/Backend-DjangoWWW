@@ -43,6 +43,10 @@ from AppBack.Api.Item.itemViews import (
                                 ScrappingMercadolibre,
                                 )
 
+from AppBack.Api.Reports.reportsview import (
+                                itemBySupplier,
+                                )
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/new/create',addNews.as_view()),
@@ -73,6 +77,7 @@ urlpatterns = [
     path('api/item/scrapping/newegg', ScrappingNewegg.as_view()),
     path('api/item/scrapping/mercadolibre', ScrappingMercadolibre.as_view()),
     path('api/item/update/clic/<int:pk>' , ItemUpdateClicApi.as_view()),
+    path('api/report/itemsBySupplier' , itemBySupplier.as_view()),
 ]
 
 
