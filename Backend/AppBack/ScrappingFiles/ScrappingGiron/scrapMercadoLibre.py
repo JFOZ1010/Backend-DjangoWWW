@@ -5,7 +5,7 @@ import json
 from datetime import date
 
 def scrapMercadoLibre(url,typeId):
-    print(url)
+    #print(url)
 
     result = requests.get(url)
     content = result.text

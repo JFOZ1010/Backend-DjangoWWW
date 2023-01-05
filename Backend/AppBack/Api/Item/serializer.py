@@ -6,3 +6,8 @@ class ItemSerializer(serializers.ModelSerializer):
     class Meta: 
         model = Item
         fields = '__all__'
+
+class ClicSerializer(serializers.ModelSerializer):
+    class Meta: 
+        model = Item
+        fields = ['item_clic']

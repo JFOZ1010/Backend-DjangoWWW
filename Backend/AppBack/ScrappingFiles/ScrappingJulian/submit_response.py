@@ -10,7 +10,7 @@ def doAmazonGPU():
     print('Iniciando Amazon...')
     resultadosAmazon = ScrappyAmzn(urls_amazon['RX500series']) + ScrappyAmzn(urls_amazon['RX5000series']) + ScrappyAmzn(urls_amazon['RX6000series']) + ScrappyAmzn(urls_amazon['RX7000series'])
     requests.post(URL, json = resultadosAmazon)
-    print(len(resultadosAmazon))
+    #print(len(resultadosAmazon))
     ## return resultadosAmazon
 
 def doMercadoLibreGPU():

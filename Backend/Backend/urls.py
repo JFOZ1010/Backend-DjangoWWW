@@ -36,6 +36,7 @@ from AppBack.Api.Supplier.supplierViews import (
 from AppBack.Api.Item.itemViews import (
                                 ItemCreateApi,
                                 ItemCreateApi2,
+                                ItemUpdateClicApi,
                                 AllItems,
                                 ScrappingAmazon,
                                 ScrappingNewegg,
@@ -71,6 +72,7 @@ urlpatterns = [
     path('api/item/scrapping/amazon', ScrappingAmazon.as_view()),
     path('api/item/scrapping/newegg', ScrappingNewegg.as_view()),
     path('api/item/scrapping/mercadolibre', ScrappingMercadolibre.as_view()),
+    path('api/item/update/clic/<int:pk>' , ItemUpdateClicApi.as_view()),
 ]
 
 

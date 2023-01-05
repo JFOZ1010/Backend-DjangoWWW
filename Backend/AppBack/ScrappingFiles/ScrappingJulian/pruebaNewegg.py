@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import json
 from .conversion_dolar import dolar_convert, getFecha
+import re
 
 urls_newegg = {
     'RX500series' : { 'type': 3, 'link': 'https://www.newegg.com/p/pl?d=rx+500+series'},
@@ -27,35 +28,34 @@ def ScrappyEgg(urls):
     pesoCOP = dolar_convert()
     content = requests.get(urls['link'], headers = HEADER).text
     soup = BeautifulSoup(content, 'html.parser')
-    LINK = soup.find_all('a', class_ = 'item-title')
-    IMG = soup.find_all('a', class_ = 'item-img')
-    NOMBRE = soup.find_all('a', class_ =  'item-title')
-    PRECIO = soup.find_all('li', class_ = 'price-current')
+    NOMBRE_URL = soup.find_all('a', class_ =  'item-title')
 
-    print('Numero de productos a buscar: ', len(LINK))
-    ## Ingresamos a cada producto y sacamos su imagen, precio y nombre
-    for i in range(len(LINK)):
-        ## Ajuste de la moneda
-        auxPrecio = PRECIO[i].strong.text + PRECIO[i].sup.text
-        auxPrecio = auxPrecio.replace(',', '')
-
+    for i in range(0, 10, 1):
         try:
-            auxPrecio = float(auxPrecio)
-        except ValueError:
+            innerResult = requests.get(NOMBRE_URL[i]['href'], headers = HEADER)
+        except Exception:
             continue
+        innerContent = innerResult.text
+        innerSoup = BeautifulSoup(innerContent, 'html.parser')
+        PRECIO = innerSoup.find_all('li', class_ = 'price-current')
 
-
-        response["products"].append({
-            "item_picture": IMG[i].img['src'],
-            "item_url": LINK[i]['href'],
-            "item_name": NOMBRE[i].text,
-            "item_price": int(pesoCOP*auxPrecio),
-            'type_id' : urls['type'],
-            'item_description': 'details',
-            'user_id': 'auth0|639e3f6e9c43cd6f74e81ba0',
-            'item_date': getFecha()
-
+        if (PRECIO[0].text == ''):
+            continue
+        auxPrecio = PRECIO[0].text
+        auxPrecio = auxPrecio.replace(',', '')
+        auxPrecio = re.findall(r'\d+\.\d+', auxPrecio)
+        IMG = innerSoup.find_all('img', class_ = 'product-view-img-original')
+        response['products'].append({
+            'item_name': NOMBRE_URL[i].text,
+            'item_price': int( float(auxPrecio[0]) * pesoCOP),
+            'item_url' : NOMBRE_URL[i]['href'],
+            'item_picture': IMG[0]['src'],
+            'item_description': 'JULIAN NEW',
+            'user_id' : 'auth0|639e3f6e9c43cd6f74e81ba0',
+            'type_id': urls['type'],
+            'item_date' : getFecha()
         })
-    ## responseJson = json.dumps(response, indent = 4)
-    ## print(responseJson, 'Num Productos: ', len(response["products"]))
+
+    responseJson = json.dumps(response, indent = 4)
+    #print(responseJson, 'Num Productos: ', len(response["products"]))
     return response['products']

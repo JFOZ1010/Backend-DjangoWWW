@@ -110,12 +110,12 @@ def Walmart():
     for i in range(len(urls)):
         diccionarioProducto = {
             'type_id': 4, 
-            'user_id': 'auth0|639e3ee1aacda0152647f763',
+            'user_id': 'auth0|639e3f6e9c43cd6f74e81ba0',
             'item_url': urls[i],
             'item_name': titulosPage1[i],
             'item_price': preciosPage1[i],
             'item_picture': imagenesPage1[i],
-            'item_description': 'Description Generic', 
+            'item_description': 'Felipe', 
             'item_date': date.today().strftime('%Y-%m-%d') 
         } 
         productos.append(diccionarioProducto)
