@@ -5,5 +5,5 @@ set -o errexit
 #poetry install
 pip install -r requirements.txt
 
-python ./Backend/manage.py collectstatic --no-input
-python ./Backend/manage.py migrate
+python3 manage.py collectstatic --no-input
+python3 manage.py migrate
