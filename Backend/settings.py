@@ -88,18 +88,6 @@ WSGI_APPLICATION = 'Backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-"""
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'proyect_www',
-        'USER': 'juanfelipeoz',
-        'PASSWORD': 'LBox2vyKMhOjkQ2bwtQMb60HJp8XFnIu',
-        'HOST': 'dpg-cdnrnmha6gdooi7cjf50-a.oregon-postgres.render.com',
-        'DATABASE_PORT': os.getenv('DB_DATABASE_PORT'),
-    }
-}
-"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
