@@ -91,10 +91,10 @@ WSGI_APPLICATION = 'Backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),
+        'NAME': 'proyect-www',
+        'USER': 'juanfelipeoz',
+        'PASSWORD': 'LBox2vyKMhOjkQ2bwtQMb60HJp8XFnIu',
+        'HOST': 'dpg-cdnrnmha6gdooi7cjf50-a.oregon-postgres.render.com',
         'DATABASE_PORT': os.getenv('DB_DATABASE_PORT'),
     }
 }
