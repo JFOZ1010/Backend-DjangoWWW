@@ -120,6 +120,6 @@ def Walmart():
         } 
         productos.append(diccionarioProducto)
 
-    url = 'http://127.0.0.1:6060/api/item/create2'
+    url = 'https://deploy-backendwww.onrender.com/api/item/create2'
     x = requests.post(url, json = productos)
 

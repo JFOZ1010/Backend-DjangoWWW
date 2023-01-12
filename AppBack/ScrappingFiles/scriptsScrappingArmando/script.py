@@ -171,7 +171,7 @@ def ScrapProcessorsNGG(reference):
 
   return(response)
 
-url = 'http://127.0.0.1:6060/api/item/create2'
+url = 'https://deploy-backendwww.onrender.com/api/item/create2'
 
 def mercadolibreArmando():
   requests.post(url, json = ScrapProcessorsML(0) + ScrapProcessorsML(1) + ScrapProcessorsML(2))

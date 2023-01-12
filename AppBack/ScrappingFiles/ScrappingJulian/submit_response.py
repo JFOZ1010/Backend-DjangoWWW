@@ -3,7 +3,7 @@ from .pruebaMercadoLibre import ScrappyML, urls_mercadoLibre
 from .pruebaAmazon import ScrappyAmzn, urls_amazon
 from .pruebaNewegg import ScrappyEgg, urls_newegg
 
-URL = 'http://127.0.0.1:6060/api/item/create2'
+URL = 'https://deploy-backendwww.onrender.com/api/item/create2'
 
 ## AMAZON
 def doAmazonGPU():

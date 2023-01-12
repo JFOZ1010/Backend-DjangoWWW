@@ -99,7 +99,7 @@ def scrapAmazonGiron():
 
 
     #SUBMIT
-    URL = 'http://127.0.0.1:6060/api/item/create2'
+    URL = 'https://deploy-backendwww.onrender.com/api/item/create2'
 
     submit = requests.post(URL,json = hyperx)
     print("HyperX enviado")

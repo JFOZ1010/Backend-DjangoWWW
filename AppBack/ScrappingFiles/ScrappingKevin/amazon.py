@@ -88,7 +88,7 @@ def amazon():
 
     print("Almacenando datos...")
 
-    backurl = 'http://localhost:6060/api/item/create2'
+    backurl = 'https://deploy-backendwww.onrender.com/api/item/create2'
 
     dataFull = dataR3[:10] + dataR5[:10] + dataR7[:10]
     #dataFull = dataR3[:1]
