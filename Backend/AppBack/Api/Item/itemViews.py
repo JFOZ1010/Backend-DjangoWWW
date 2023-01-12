@@ -18,9 +18,9 @@ from ...ScrappingFiles.ScrappingGiron.scrapAmazon import scrapAmazonGiron
 from ...ScrappingFiles.ScrappingGiron.scrapMercadoLibre import scrapMLGiron
 from ...ScrappingFiles.ScrappingGiron.scrapNewegg import scrapNeweggGiron
 from ...ScrappingFiles.ScrappingJulian.submit_response import (doAmazonGPU, doAmazonRAM, doMercadoLibreGPU, doMercadoLibreRAM, doNewEggGPU, doNewEggRAM)
-from ...ScrappingFiles.ScrappingJFOZ.amazon import Amazon as amazonJFOZ
-from ...ScrappingFiles.ScrappingJFOZ.MercadoLibre import mercadoLibre as mercadolibreJFOZ
-from ...ScrappingFiles.ScrappingJFOZ.walmart import Walmart as walmartJFOZ
+from ...ScrappingFiles.scrappingJFOZ.amazon import Amazon as amazonJFOZ
+from ...ScrappingFiles.scrappingJFOZ.MercadoLibre import mercadoLibre as mercadolibreJFOZ
+from ...ScrappingFiles.scrappingJFOZ.walmart import Walmart as walmartJFOZ
 
 
 class ItemCreateApi(generics.CreateAPIView):
