@@ -1,11 +1,15 @@
-
-from AppBack.models import Item
+from .serializer import (
+    HistorySerializer,
+    HistoryItemSerializer
+)
+from AppBack.models import Item, History, History_item
 from rest_framework.response import Response
 from rest_framework import permissions
 from rest_framework import status
+from rest_framework import generics
 from rest_framework.views import APIView
 from ..Item.serializer import ItemSerializer
-
+from django_filters.rest_framework import DjangoFilterBackend
 
 ##Gracias a Dios los serializers son los papás
 class itemBySupplier(APIView):
@@ -24,4 +28,10 @@ class itemBySupplier(APIView):
             ##Si no se encontró nada, igual toca responder lo obvio
             return Response("No hay items para mostrar", status = status.HTTP_404_NOT_FOUND)
 
-        
+class AllHistoryItems(generics.ListAPIView):
+    serializer_class = HistoryItemSerializer
+    model = History_item
+    permission_classes = [permissions.AllowAny]
+    queryset = History_item.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['item_id']
