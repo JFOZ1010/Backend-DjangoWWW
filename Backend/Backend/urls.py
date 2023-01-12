@@ -48,6 +48,10 @@ from AppBack.Api.Reports.reportsview import (
 )
 
 
+from AppBack.Api.Reports.reportsview import (
+                                ItemByCatApi,
+                                )
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/new/create',addNews.as_view()),
@@ -78,6 +82,7 @@ urlpatterns = [
     path('api/item/scrapping/newegg', ScrappingNewegg.as_view()),
     path('api/item/scrapping/mercadolibre', ScrappingMercadolibre.as_view()),
     path('api/item/update/clic/<int:pk>' , ItemUpdateClicApi.as_view()),
+    path('api/report/itembycat', ItemByCatApi.as_view()),
     path('api/report/itemsBySupplier' , itemBySupplier.as_view()),
     path('api/report/itemPrice', AllHistoryItems.as_view())
 ]
