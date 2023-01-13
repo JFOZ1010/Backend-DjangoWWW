@@ -71,7 +71,7 @@ def newegg():
 
     print("Almacenando datos...")
 
-    backurl = 'https://deploy-backendwww.onrender.com/api/item/create2'
+    backurl = 'http://127.0.0.1:6060/api/item/create2'
 
     dataFull = dataR3[:10] + dataR5and7[:10]
     #dataFull = dataFull[:1]
